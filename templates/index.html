@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PPDB SMA Negeri 317</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #FFFFFF;
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            color: #333333;
+        }
+
+        .main-container {
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-top: 20px;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            font-weight: 700;
+            color: #A0D787;
+        }
+
+        .header h2 {
+            color: #333333;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .header p {
+            color: #666666;
+            font-size: 1.1em;
+            font-weight: 400;
+        }
+
+        .welcome-text {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            color: #333333;
+            font-size: 1.1em;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        .welcome-text strong {
+            font-weight: 600;
+            color: #A0D787;
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .stat-box {
+            background: #A0D787;
+            color: #FFFFFF;
+            padding: 25px 35px;
+            border-radius: 10px;
+            text-align: center;
+            min-width: 180px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 1em;
+            font-weight: 500;
+        }
+
+        .actions-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 50px 0;
+            flex-wrap: wrap;
+        }
+
+        .action-box {
+            background: #FFFFFF;
+            border: 2px solid #A0D787;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            width: 320px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            color: #333333;
+            transition: transform 0.3s ease;
+        }
+
+        .action-box:hover {
+            transform: translateY(-5px);
+            background: #F8F9FA;
+        }
+
+        .action-box h3 {
+            color: #333333;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            font-weight: 700;
+        }
+
+        .action-box p {
+            color: #666666;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            font-weight: 400;
+        }
+
+        .btn-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #A0D787;
+            color: #FFFFFF;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1em;
+            width: 100%;
+            max-width: 220px;
+            text-align: center;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            background: #8BC34A;
+        }
+
+        .btn-secondary {
+            background: #666666;
+            color: #FFFFFF;
+        }
+
+        .btn-secondary:hover {
+            background: #555555;
+        }
+
+        .announcement-section {
+            background: #FFFFFF;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 40px auto;
+            max-width: 800px;
+            border-left: 5px solid #A0D787;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            color: #333333;
+        }
+
+        .announcement-section h3 {
+            color: #333333;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.4em;
+            font-weight: 700;
+        }
+
+        .empty-announcement {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666666;
+            border: 2px dashed #A0D787;
+            border-radius: 10px;
+            font-style: italic;
+        }
+
+        .announcement-content {
+            background: #F8F9FA;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #E0E0E0;
+        }
+
+        .announcement-content h4 {
+            color: #A0D787;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+
+        .announcement-content p {
+            color: #333333;
+            margin-bottom: 10px;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        .announcement-date {
+            color: #666666;
+            font-size: 0.9em;
+            font-weight: 400;
+        }
+
+        .info-section {
+            background: #FFFFFF;
+            border-radius: 10px;
+            padding: 40px;
+            margin: 50px auto;
+            max-width: 1000px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            color: #333333;
+        }
+
+        .info-section h2 {
+            color: #333333;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.8em;
+            font-weight: 800;
+        }
+
+        .info-grid {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .info-card {
+            background: #A0D787;
+            color: #FFFFFF;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            min-width: 250px;
+            transition: transform 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            background: #8BC34A;
+        }
+
+        .info-card h4 {
+            color: #FFFFFF;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            font-weight: 700;
+        }
+
+        .info-card p {
+            color: #FFFFFF;
+            margin: 8px 0;
+            font-weight: 400;
+        }
+
+        .admin-link {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #E0E0E0;
+        }
+
+        .admin-link a {
+            color: #A0D787;
+            text-decoration: none;
+            font-size: 1em;
+            font-weight: 600;
+            background: #F8F9FA;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .admin-link a:hover {
+            text-decoration: none;
+            color: #FFFFFF;
+            background: #A0D787;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.2em;
+            }
+
+            .header h2 {
+                font-size: 1.4em;
+            }
+
+            .stats-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .actions-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .action-box {
+                width: 100%;
+                max-width: 350px;
+            }
+
+            .info-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <!-- Header -->
+        <div class="header">
+            <h1>SELAMAT DATANG 8.35</h1>
+            <h2>CALON SISWA SMA NEGERI 317</h2>
+            <p>Website Penerimaan Peserta Didik Baru Tahun Ajaran 2026/2027</p>
+        </div>
+
+        <!-- Welcome Text -->
+        <div class="welcome-text">
+            <p>Selamat datang di situs PPDB Online SMA Negeri 317. Dengan penuh kebanggaan, kami membuka kesempatan bagi calon peserta didik baru yang ingin menjadi bagian dari keluarga besar SMA Negeri 317.</p>
+            <p><strong>Mari wujudkan impian pendidikan terbaik bersama kami!</strong></p>
+        </div>
+
+        <!-- Student Actions -->
+        <div class="actions-container">
+            <div class="action-box">
+                <h3>Saya Calon Siswa</h3>
+                <p>Mendaftar sebagai siswa baru atau login ke akun yang sudah ada</p>
+                <div class="btn-container">
+                    <a href="{{ url_for('register') }}" class="btn">Register</a>
+                    <a href="{{ url_for('login') }}" class="btn btn-secondary">Login</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Latest Announcement -->
+        <div class="announcement-section">
+            <h3>Pengumuman Terbaru</h3>
+            {% if pengumuman %}
+            <div class="announcement-content">
+                <h4>{{ pengumuman.judul }}</h4>
+                <p>{{ pengumuman.isi }}</p>
+                <div class="announcement-date">Diposting: {{ pengumuman.tanggal.strftime('%d-%m-%Y %H:%M') }}</div>
+            </div>
+            {% else %}
+            <div class="empty-announcement">
+                <p>Belum ada pengumuman yang tersedia saat ini.</p>
+                <p>Panitia belum membuat pengumuman apapun.</p>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Information Section -->
+        <div class="info-section">
+            <h2>Informasi Pendaftaran</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h4>Jadwal Pendaftaran</h4>
+                    <p>1 Juni - 31 Juli 2026</p>
+                </div>
+                <div class="info-card">
+                    <h4>Kontak</h4>
+                    <p>Email: ppdb@sma317.sch.id</p>
+                    <p>Telp: (021) 1234567</p>
+                </div>
+                <div class="info-card">
+                    <h4>Alamat</h4>
+                    <p>Jl. Jomokerto No. 317</p>
+                    <p>Kota Batam</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Link -->
+        <div class="admin-link">
+            <span style="color: #ccc; font-size: 0.8rem;">@RKS-412</span>
+        </div>
+    </div>
+</body>
+</html>

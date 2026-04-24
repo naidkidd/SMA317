@@ -1,0 +1,497 @@
+/* LINE 1: Ganti font di sini */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: #333333;
+    min-height: 100vh;
+    line-height: 1.6;
+    background-color: #FFFFFF;
+}
+
+/* Background untuk semua halaman */
+body {
+    background: #FFFFFF !important;
+}
+
+/* Navbar */
+.navbar {
+    background: #A0D787;
+    padding: 1rem 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #FFFFFF;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.nav-links span {
+    color: #FFFFFF;
+    font-weight: 500;
+}
+
+.logout-btn {
+    background: #FFFFFF;
+    color: #A0D787;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.logout-btn:hover {
+    background: #F5F5F5;
+    transform: translateY(-1px);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Alert Messages */
+.alert {
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    text-align: center;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.alert-success {
+    background: #A0D787;
+    color: white;
+    border-left: 4px solid #8BC34A;
+}
+
+.alert-error {
+    background: #F44336;
+    color: white;
+    border-left: 4px solid #D32F2F;
+}
+
+/* Homepage Styles */
+.homepage {
+    min-height: 100vh;
+}
+
+.hero-section {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.hero-content {
+    text-align: center;
+    color: #333333;
+    max-width: 1200px;
+    padding: 4rem 2rem;
+}
+
+.hero-content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #333333;
+    font-weight: 700;
+}
+
+.hero-content .subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: #666666;
+}
+
+.summary {
+    max-width: 800px;
+    margin: 0 auto 3rem;
+    line-height: 1.8;
+}
+
+.summary p {
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+    color: #333333;
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin: 4rem 0;
+}
+
+.action-card {
+    background: #FFFFFF;
+    padding: 2.5rem 2rem;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    border: 2px solid #A0D787;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.action-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+.action-card h3 {
+    color: #333333;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.action-card p {
+    margin-bottom: 2rem;
+    color: #666666;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+/* Tombol */
+.btn-white {
+    background: #A0D787;
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    font-weight: 600;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.btn-white:hover {
+    background: #8BC34A;
+    transform: translateY(-2px);
+    color: white;
+    text-decoration: none;
+}
+
+/* Login & Register Styles */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    padding: 2rem 0;
+}
+
+.login-form {
+    background: #FFFFFF;
+    padding: 3rem;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 450px;
+    border: 2px solid #A0D787;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.login-form h2 {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    color: #A0D787;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.form-group {
+    margin-bottom: 2rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+    color: #333333;
+    font-size: 1rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #FFFFFF;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    background: white;
+    box-shadow: 0 0 0 2px rgba(160, 215, 135, 0.3);
+    border-color: #A0D787;
+}
+
+/* Button Styles */
+.btn-primary {
+    background: #A0D787;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    width: 100%;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.btn-primary:hover {
+    background: #8BC34A;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: #666666;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+.btn-secondary:hover {
+    background: #555555;
+    transform: translateY(-2px);
+}
+
+.register-link {
+    text-align: center;
+    margin-top: 2rem;
+    color: #666666;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+}
+
+.register-link a {
+    color: #A0D787;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.register-link a:hover {
+    color: #8BC34A;
+    text-decoration: underline;
+}
+
+/* Dashboard Styles */
+.dashboard {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.dashboard h2 {
+    margin-bottom: 2rem;
+    text-align: center;
+    color: #333333;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.card {
+    background: #FFFFFF;
+    padding: 2rem;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    border: 1px solid #E0E0E0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+}
+
+.card h3 {
+    margin-bottom: 1.5rem;
+    color: #A0D787;
+    font-size: 1.3rem;
+    font-weight: 600;
+    border-bottom: 2px solid rgba(160, 215, 135, 0.3);
+    padding-bottom: 0.5rem;
+}
+
+.card h4 {
+    margin-bottom: 1rem;
+    color: #333333;
+}
+
+.card p {
+    margin-bottom: 1rem;
+    color: #333333;
+}
+
+/* Status Styles */
+.status-belum_lengkap {
+    color: #FF9800;
+    font-weight: bold;
+    padding: 0.3rem 0.8rem;
+    background: rgba(255, 152, 0, 0.1);
+    border-radius: 20px;
+    display: inline-block;
+}
+
+.status-menunggu {
+    color: #FF9800;
+    font-weight: bold;
+    padding: 0.3rem 0.8rem;
+    background: rgba(255, 152, 0, 0.1);
+    border-radius: 20px;
+    display: inline-block;
+}
+
+.status-lulus {
+    color: #4CAF50;
+    font-weight: bold;
+    padding: 0.3rem 0.8rem;
+    background: rgba(76, 175, 80, 0.1);
+    border-radius: 20px;
+    display: inline-block;
+}
+
+.status-tidak_lulus {
+    color: #F44336;
+    font-weight: bold;
+    padding: 0.3rem 0.8rem;
+    background: rgba(244, 67, 54, 0.1);
+    border-radius: 20px;
+    display: inline-block;
+}
+
+/* Table Styles */
+.table-container {
+    overflow-x: auto;
+    border-radius: 8px;
+    background: #FFFFFF;
+    padding: 1rem;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #FFFFFF;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #E0E0E0;
+}
+
+th {
+    background: #A0D787;
+    font-weight: bold;
+    color: #FFFFFF;
+}
+
+tr:hover {
+    background: rgba(160, 215, 135, 0.05);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav-container {
+        padding: 0 1rem;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .container {
+        padding: 1rem;
+    }
+    
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+    
+    .action-buttons {
+        grid-template-columns: 1fr;
+    }
+    
+    .login-form {
+        padding: 2rem;
+        margin: 1rem;
+    }
+    
+    .card {
+        padding: 1.5rem;
+    }
+}
+
+/* Form Buttons Container untuk grouping tombol */
+.form-buttons {
+    margin-top: 2rem;
+}
+
+.form-buttons .btn {
+    margin-bottom: 0.75rem;
+}

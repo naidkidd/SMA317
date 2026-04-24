@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="login-container">
+    <div class="login-form">
+        <h2>Registrasi sebagai {{ request.args.get('role', 'Siswa')|title }}</h2>
+        
+        {% if request.args.get('role') == 'siswa' %}
+        <div class="info-register">
+            <p><strong>Informasi Pendaftaran:</strong></p>
+            <p>Silakan isi data dengan benar. Setelah registrasi, Anda dapat login menggunakan username dan password yang telah dibuat.</p>
+        </div>
+        {% endif %}
+        
+        <form method="POST" id="registerForm">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="role" value="{{ request.args.get('role', 'siswa') }}">
+            
+            <div class="form-group">
+                <label for="nama">
+                    {% if request.args.get('role') == 'admin' %}
+                        Nama Admin
+                    {% else %}
+                        Nama Lengkap Siswa
+                    {% endif %}
+                </label>
+                <input type="text" id="nama" name="nama" required 
+                       placeholder="Masukkan nama lengkap" autocomplete="name">
+            </div>
+            
+            <div class="form-group">
+                <label for="username">
+                    {% if request.args.get('role') == 'admin' %}
+                        Username Admin
+                    {% else %}
+                        NIS (Nomor Induk Siswa)
+                    {% endif %}
+                </label>
+                <input type="text" id="username" name="username" required 
+                       placeholder="Masukkan username" autocomplete="username">
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required 
+                       placeholder="Masukkan password" autocomplete="new-password">
+            </div>
+            
+            <button type="submit" class="btn-primary">Daftar</button>
+        </form>
+        
+        <p class="register-link">
+            Sudah punya akun? 
+            <a href="{{ url_for('login') }}?role={{ request.args.get('role', 'siswa') }}">
+                Login di sini
+            </a>
+        </p>
+        
+        <div class="back-home">
+            <a href="{{ url_for('home') }}" class="btn-secondary">Kembali ke Homepage</a>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Register page loaded');
+    
+    // Debug CSRF token
+    const csrfInput = document.querySelector('input[name="csrf_token"]');
+    if (csrfInput) {
+        console.log('Register CSRF Token:', csrfInput.value ? 'YES' : 'NO');
+        console.log('Register CSRF Token length:', csrfInput.value.length);
+    }
+    
+    // Form validation
+    const form = document.getElementById('registerForm');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            const csrfToken = this.querySelector('input[name="csrf_token"]').value;
+            
+            if (!csrfToken || csrfToken.length < 10) {
+                alert('Error: CSRF Token tidak valid. Silakan refresh halaman.');
+                e.preventDefault();
+                return false;
+            }
+            
+            return true;
+        });
+    }
+});
+</script>
+
+<style>
+.info-register {
+    background: rgba(160, 215, 135, 0.1);
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    border-radius: 8px;
+    border-left: 4px solid #A0D787;
+}
+
+.info-register p {
+    margin: 0.3rem 0;
+    color: #333333;
+}
+</style>
+{% endblock %}

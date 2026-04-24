@@ -1,0 +1,292 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="dashboard">
+    <h2>Dashboard Calon Siswa</h2>
+
+    <!-- Info akun -->
+    <div class="card">
+        <h3>Informasi Akun</h3>
+        <p><strong>Selamat datang, {{ user.nama_decrypted }}!</strong></p>
+        <p>Username/NIS: <strong>{{ user.username }}</strong></p>
+        <p>Status: <span class="status-{{ user.status }}">{{ user.status|title }}</span></p>
+    </div>
+
+    <div class="card">
+        <h3>Data Pendaftaran</h3>
+        {% if user.tempat_lahir_decrypted %}
+            <div class="data-grid">
+                <div class="data-item">
+                    <strong>Nama:</strong>
+                    <span>{{ user.nama_decrypted }}</span>
+                </div>
+                <div class="data-item">
+                    <strong>Username:</strong>
+                    <span>{{ user.username }}</span>
+                </div>
+                <div class="data-item">
+                    <strong>Tempat Lahir:</strong>
+                    <span>{{ user.tempat_lahir_decrypted }}</span>
+                </div>
+                <div class="data-item">
+                    <strong>Tanggal Lahir:</strong>
+                    <span>{{ user.tanggal_lahir.strftime('%d-%m-%Y') if user.tanggal_lahir else '-' }}</span>
+                </div>
+                <div class="data-item">
+                    <strong>Jenis Kelamin:</strong>
+                    <span>{{ user.jenis_kelamin_decrypted }}</span>
+                </div>
+                <div class="data-item">
+                    <strong>Agama:</strong>
+                    <span>{{ user.agama_decrypted }}</span>
+                </div>
+                <div class="data-item full-width">
+                    <strong>Alamat:</strong>
+                    <span>{{ user.alamat_decrypted }}</span>
+                </div>
+                <div class="data-item">
+                    <strong>No. HP:</strong>
+                    <span>{{ user.no_hp_decrypted }}</span>
+                </div>
+                <div class="data-item">
+                    <strong>Asal Sekolah:</strong>
+                    <span>{{ user.asal_sekolah_decrypted }}</span>
+                </div>
+                <div class="data-item">
+                    <strong>Nama Ayah:</strong>
+                    <span>{{ user.nama_ayah_decrypted }}</span>
+                </div>
+                <div class="data-item">
+                    <strong>Pekerjaan Ayah:</strong>
+                    <span>{{ user.pekerjaan_ayah_decrypted }}</span>
+                </div>
+                <div class="data-item">
+                    <strong>Nama Ibu:</strong>
+                    <span>{{ user.nama_ibu_decrypted }}</span>
+                </div>
+                <div class="data-item">
+                    <strong>Pekerjaan Ibu:</strong>
+                    <span>{{ user.pekerjaan_ibu_decrypted }}</span>
+                </div>
+            </div>
+            {% if user.status != 'selesai' %}
+            <div class="form-actions">
+                <a href="{{ url_for('lengkapi_data_siswa') }}" class="btn-secondary">Edit Data</a>
+                <a href="{{ url_for('upload_dokumen') }}" class="btn-primary">Upload Dokumen</a>
+            </div>
+            {% endif %}
+        {% else %}
+            <p>Data pribadi belum lengkap. Silakan lengkapi data Anda.</p>
+            <a href="{{ url_for('lengkapi_data_siswa') }}" class="btn-primary">Lengkapi Data</a>
+        {% endif %}
+    </div>
+
+    <div class="card">
+        <h3>Status Pendaftaran</h3>
+        <div class="data-grid">
+            <div class="data-item">
+                <strong>Status:</strong>
+                <span class="status-{{ user.status }}">{{ user.status|title }}</span>
+            </div>
+        </div>
+        
+        {% if user.status == 'belum_lengkap' %}
+            <div class="info-message">Silakan lengkapi data pribadi dan upload dokumen yang diperlukan.</div>
+        {% elif user.status == 'menunggu' %}
+            <div class="info-message">Pendaftaran Anda sedang dalam proses verifikasi oleh admin.</div>
+        {% elif user.status == 'lulus' %}
+            <div class="success-message">🎉 Selamat! Anda dinyatakan LULUS seleksi pendaftaran.</div>
+        {% elif user.status == 'tidak_lulus' %}
+            <div class="error-message">⚠️ Maaf, Anda dinyatakan TIDAK LULUS seleksi pendaftaran.</div>
+        {% elif user.status == 'selesai' %}
+            <div class="info-message">✅ Pendaftaran Anda telah diselesaikan. Data tidak dapat diubah lagi.</div>
+        {% endif %}
+
+        {% if bukti %}
+            <div class="data-grid">
+                <div class="data-item">
+                    <strong>File Bukti:</strong>
+                    <span>{{ bukti.filename }}</span>
+                </div>
+                <div class="data-item">
+                    <strong>Status Bukti:</strong>
+                    <span class="status-{{ bukti.status }}">{{ bukti.status|title }}</span>
+                </div>
+                <div class="data-item">
+                    <strong>Tanggal Upload:</strong>
+                    <span>{{ bukti.tanggal_upload.strftime('%d-%m-%Y %H:%M') }}</span>
+                </div>
+            </div>
+        {% else %}
+            <p>Anda belum mengupload bukti pendaftaran.</p>
+        {% endif %}
+
+        {% if user.status != 'selesai' %}
+        <a href="{{ url_for('upload_bukti') }}" class="btn-primary">Upload Bukti Pendaftaran</a>
+        {% endif %}
+    </div>
+
+    {% if user.status != 'selesai' %}
+    <div class="card">
+        <h3>Selesaikan Pendaftaran</h3>
+        <div class="finalization-info">
+            <p><strong>⚠️ PERINGATAN:</strong> Setelah menekan tombol di bawah, Anda TIDAK AKAN BISA lagi mengubah data atau dokumen pendaftaran.</p>
+            
+            <div class="checklist">
+                <div class="checklist-item {% if user.tempat_lahir_decrypted and user.tanggal_lahir and user.jenis_kelamin_decrypted and user.agama_decrypted and user.alamat_decrypted and user.no_hp_decrypted and user.asal_sekolah_decrypted and user.nama_ayah_decrypted and user.pekerjaan_ayah_decrypted and user.nama_ibu_decrypted and user.pekerjaan_ibu_decrypted %}completed{% endif %}">
+                    ✓ Data Pribadi Lengkap
+                </div>
+                <div class="checklist-item {% if bukti %}completed{% endif %}">
+                    ✓ Bukti Pendaftaran Terupload
+                </div>
+                <div class="checklist-item {% if dokumen_count >= 3 %}completed{% endif %}">
+                    ✓ Minimal 3 Dokumen Tambahan ({{ dokumen_count }}/3)
+                </div>
+            </div>
+            
+            {% if user.tempat_lahir_decrypted and user.tanggal_lahir and user.jenis_kelamin_decrypted and user.agama_decrypted and user.alamat_decrypted and user.no_hp_decrypted and user.asal_sekolah_decrypted and user.nama_ayah_decrypted and user.pekerjaan_ayah_decrypted and user.nama_ibu_decrypted and user.pekerjaan_ibu_decrypted and bukti and dokumen_count >= 3 %}
+            <form method="POST" action="{{ url_for('selesaikan_pendaftaran') }}" onsubmit="return confirmFinalization()">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <button type="submit" class="btn-finalize">✅ Selesaikan Pendaftaran</button>
+            </form>
+            {% else %}
+            <button class="btn-finalize" disabled style="opacity: 0.5; cursor: not-allowed;">
+                ⚠️ Belum Bisa Diselesaikan
+            </button>
+            <p class="finalization-note">Pastikan semua checklist di atas sudah terpenuhi.</p>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if pengumuman %}
+    <div class="card">
+        <h3>Pengumuman Terbaru</h3>
+        <h4>{{ pengumuman.judul }}</h4>
+        <p>{{ pengumuman.isi }}</p>
+        <small>Diposting: {{ pengumuman.tanggal.strftime('%d-%m-%Y %H:%M') }}</small>
+    </div>
+    {% endif %}
+</div>
+
+<style>
+.info-message, .success-message, .error-message {
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px 0;
+    font-weight: 500;
+}
+
+.info-message {
+    background: #E3F2FD;
+    color: #1565C0;
+    border: 1px solid #BBDEFB;
+}
+
+.success-message {
+    background: #E8F5E8;
+    color: #2E7D32;
+    border: 1px solid #C8E6C9;
+}
+
+.error-message {
+    background: #FFEBEE;
+    color: #C62828;
+    border: 1px solid #FFCDD2;
+}
+
+.data-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.data-item {
+    padding: 1rem;
+    background: #F8F9FA;
+    border-radius: 8px;
+    border-left: 3px solid #A0D787;
+}
+
+.data-item strong {
+    display: block;
+    color: #A0D787;
+    margin-bottom: 0.3rem;
+    font-size: 0.9rem;
+}
+
+.data-item span {
+    color: #333333;
+    font-size: 1rem;
+}
+
+.full-width {
+    grid-column: 1 / -1;
+}
+
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.finalization-info {
+    background: #FFF8E1;
+    padding: 20px;
+    border-radius: 10px;
+    border-left: 4px solid #FFA000;
+    margin-top: 15px;
+}
+
+.checklist {
+    margin: 20px 0;
+}
+
+.checklist-item {
+    padding: 10px;
+    margin: 8px 0;
+    background: #F5F5F5;
+    border-radius: 6px;
+    border-left: 3px solid #FFA000;
+}
+
+.checklist-item.completed {
+    background: #E8F5E8;
+    border-left: 3px solid #4CAF50;
+}
+
+.btn-finalize {
+    background: linear-gradient(135deg, #4CAF50, #2E7D32);
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.3s ease;
+    margin-top: 15px;
+}
+
+.btn-finalize:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+.finalization-note {
+    margin-top: 10px;
+    color: #666;
+    font-size: 0.9rem;
+    text-align: center;
+}
+</style>
+
+<script>
+function confirmFinalization() {
+    return confirm('⚠️ APAKAH ANDA YAKIN?\n\nSetelah menyelesaikan pendaftaran:\n• Anda TIDAK AKAN BISA mengubah data pribadi\n• Anda TIDAK AKAN BISA mengupload/mengganti dokumen\n• Data akan dikunci permanen\n\nPastikan semua data sudah benar sebelum melanjutkan.');
+}
+</script>
+{% endblock %}

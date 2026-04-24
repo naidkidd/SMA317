@@ -1,0 +1,177 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="dashboard">
+    <h2>Lengkapi Data Calon Siswa</h2>
+    
+    {% if user.status == 'selesai' %}
+    <div class="card">
+        <div class="alert alert-error" style="text-align: center; padding: 2rem;">
+            <h3 style="color: #F44336; margin-bottom: 1rem;">⚠️ PERINGATAN</h3>
+            <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">Pendaftaran Anda sudah diselesaikan. Data tidak dapat diubah lagi.</p>
+            <a href="{{ url_for('dashboard_siswa') }}" class="btn-secondary" style="display: inline-block; width: auto; padding: 10px 30px;">
+                Kembali ke Dashboard
+            </a>
+        </div>
+    </div>
+    {% else %}
+    <div class="card">
+        <div class="progress-info">
+            <h3>Form Data Pendaftaran</h3>
+            <p>Silakan lengkapi data diri Anda dengan benar. Data yang sudah diisi tidak dapat diubah setelah menyelesaikan pendaftaran.</p>
+        </div>
+
+        <form method="POST">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            
+            <h4>Data Pribadi</h4>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="tempat_lahir">Tempat Lahir *</label>
+                    <input type="text" id="tempat_lahir" name="tempat_lahir" 
+                           value="{{ user.tempat_lahir_decrypted or '' }}" required
+                           placeholder="Contoh: Jakarta">
+                </div>
+                
+                <div class="form-group">
+                    <label for="tanggal_lahir">Tanggal Lahir *</label>
+                    <input type="date" id="tanggal_lahir" name="tanggal_lahir" 
+                           value="{{ user.tanggal_lahir.strftime('%Y-%m-%d') if user.tanggal_lahir else '' }}" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="jenis_kelamin">Jenis Kelamin *</label>
+                    <select id="jenis_kelamin" name="jenis_kelamin" required>
+                        <option value="">Pilih Jenis Kelamin</option>
+                        <option value="Laki-laki" {% if user.jenis_kelamin_decrypted == 'Laki-laki' %}selected{% endif %}>Laki-laki</option>
+                        <option value="Perempuan" {% if user.jenis_kelamin_decrypted == 'Perempuan' %}selected{% endif %}>Perempuan</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="agama">Agama *</label>
+                    <select id="agama" name="agama" required>
+                        <option value="">Pilih Agama</option>
+                        <option value="Islam" {% if user.agama_decrypted == 'Islam' %}selected{% endif %}>Islam</option>
+                        <option value="Kristen" {% if user.agama_decrypted == 'Kristen' %}selected{% endif %}>Kristen</option>
+                        <option value="Katolik" {% if user.agama_decrypted == 'Katolik' %}selected{% endif %}>Katolik</option>
+                        <option value="Hindu" {% if user.agama_decrypted == 'Hindu' %}selected{% endif %}>Hindu</option>
+                        <option value="Buddha" {% if user.agama_decrypted == 'Buddha' %}selected{% endif %}>Buddha</option>
+                        <option value="Konghucu" {% if user.agama_decrypted == 'Konghucu' %}selected{% endif %}>Konghucu</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="alamat">Alamat Lengkap *</label>
+                <textarea id="alamat" name="alamat" rows="3" required
+                          placeholder="Isi alamat lengkap termasuk jalan, RT/RW, kelurahan, kecamatan">{{ user.alamat_decrypted or '' }}</textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="no_hp">No. HP/WhatsApp *</label>
+                <input type="tel" id="no_hp" name="no_hp" 
+                       value="{{ user.no_hp_decrypted or '' }}" required
+                       placeholder="Contoh: 081234567890">
+            </div>
+            
+            <div class="form-group">
+                <label for="asal_sekolah">Asal Sekolah *</label>
+                <input type="text" id="asal_sekolah" name="asal_sekolah" 
+                       value="{{ user.asal_sekolah_decrypted or '' }}" required
+                       placeholder="Nama sekolah asal (SMP/MTs)">
+            </div>
+            
+            <h4>Data Orang Tua</h4>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="nama_ayah">Nama Ayah Kandung *</label>
+                    <input type="text" id="nama_ayah" name="nama_ayah" 
+                           value="{{ user.nama_ayah_decrypted or '' }}" required
+                           placeholder="Nama lengkap ayah">
+                </div>
+                
+                <div class="form-group">
+                    <label for="pekerjaan_ayah">Pekerjaan Ayah *</label>
+                    <input type="text" id="pekerjaan_ayah" name="pekerjaan_ayah" 
+                           value="{{ user.pekerjaan_ayah_decrypted or '' }}" required
+                           placeholder="Contoh: PNS, Wiraswasta, Guru">
+                </div>
+                
+                <div class="form-group">
+                    <label for="nama_ibu">Nama Ibu Kandung *</label>
+                    <input type="text" id="nama_ibu" name="nama_ibu" 
+                           value="{{ user.nama_ibu_decrypted or '' }}" required
+                           placeholder="Nama lengkap ibu">
+                </div>
+                
+                <div class="form-group">
+                    <label for="pekerjaan_ibu">Pekerjaan Ibu *</label>
+                    <input type="text" id="pekerjaan_ibu" name="pekerjaan_ibu" 
+                           value="{{ user.pekerjaan_ibu_decrypted or '' }}" required
+                           placeholder="Contoh: Ibu Rumah Tangga, PNS, Wiraswasta">
+                </div>
+            </div>
+            
+            <div class="form-note">
+                <p><strong>Catatan:</strong> Field bertanda (*) wajib diisi. Pastikan data yang dimasukkan benar dan valid.</p>
+                <p><strong>Peringatan:</strong> Data tidak dapat diubah setelah Anda menyelesaikan pendaftaran.</p>
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="btn-primary">Simpan Data</button>
+                <a href="{{ url_for('dashboard_siswa') }}" class="btn-secondary">Kembali ke Dashboard</a>
+            </div>
+        </form>
+    </div>
+    {% endif %}
+</div>
+
+<style>
+.progress-info {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: #F8F9FA;
+    border-radius: 8px;
+}
+
+.progress-info h3 {
+    color: #A0D787;
+    margin-bottom: 0.5rem;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.form-note {
+    background: rgba(160, 215, 135, 0.1);
+    padding: 1rem;
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    border-left: 4px solid #A0D787;
+}
+
+.form-note p {
+    margin: 0.5rem 0;
+    color: #333333;
+    font-size: 0.9rem;
+}
+
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+@media (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+{% endblock %}

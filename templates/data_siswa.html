@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="dashboard">
+    <h2>Lengkapi Data Calon Siswa</h2>
+    
+    <div class="card">
+        <form method="POST">
+            <h3>Data Pribadi</h3>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="tempat_lahir">Tempat Lahir:</label>
+                    <input type="text" id="tempat_lahir" name="tempat_lahir" 
+                           value="{{ user.tempat_lahir or '' }}" required>
+                </div>
+                
+                <!-- Di bagian input tanggal_lahir -->
+<input type="date" id="tanggal_lahir" name="tanggal_lahir" 
+       value="{{ user.tanggal_lahir.strftime('%Y-%m-%d') if user.tanggal_lahir else '' }}" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="jenis_kelamin">Jenis Kelamin:</label>
+                    <select id="jenis_kelamin" name="jenis_kelamin" required>
+                        <option value="">Pilih Jenis Kelamin</option>
+                        <option value="Laki-laki" {% if user.jenis_kelamin == 'Laki-laki' %}selected{% endif %}>Laki-laki</option>
+                        <option value="Perempuan" {% if user.jenis_kelamin == 'Perempuan' %}selected{% endif %}>Perempuan</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="agama">Agama:</label>
+                    <select id="agama" name="agama" required>
+                        <option value="">Pilih Agama</option>
+                        <option value="Islam" {% if user.agama == 'Islam' %}selected{% endif %}>Islam</option>
+                        <option value="Kristen" {% if user.agama == 'Kristen' %}selected{% endif %}>Kristen</option>
+                        <option value="Katolik" {% if user.agama == 'Katolik' %}selected{% endif %}>Katolik</option>
+                        <option value="Hindu" {% if user.agama == 'Hindu' %}selected{% endif %}>Hindu</option>
+                        <option value="Buddha" {% if user.agama == 'Buddha' %}selected{% endif %}>Buddha</option>
+                        <option value="Konghucu" {% if user.agama == 'Konghucu' %}selected{% endif %}>Konghucu</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="alamat">Alamat Lengkap:</label>
+                <textarea id="alamat" name="alamat" rows="3" required>{{ user.alamat or '' }}</textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="no_hp">No. HP/WhatsApp:</label>
+                <input type="tel" id="no_hp" name="no_hp" 
+                       value="{{ user.no_hp or '' }}" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="asal_sekolah">Asal Sekolah:</label>
+                <input type="text" id="asal_sekolah" name="asal_sekolah" 
+                       value="{{ user.asal_sekolah or '' }}" required>
+            </div>
+            
+            <h3>Data Orang Tua</h3>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="nama_ayah">Nama Ayah:</label>
+                    <input type="text" id="nama_ayah" name="nama_ayah" 
+                           value="{{ user.nama_ayah or '' }}" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="pekerjaan_ayah">Pekerjaan Ayah:</label>
+                    <input type="text" id="pekerjaan_ayah" name="pekerjaan_ayah" 
+                           value="{{ user.pekerjaan_ayah or '' }}" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="nama_ibu">Nama Ibu:</label>
+                    <input type="text" id="nama_ibu" name="nama_ibu" 
+                           value="{{ user.nama_ibu or '' }}" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="pekerjaan_ibu">Pekerjaan Ibu:</label>
+                    <input type="text" id="pekerjaan_ibu" name="pekerjaan_ibu" 
+                           value="{{ user.pekerjaan_ibu or '' }}" required>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn-primary">Simpan Data</button>
+            <a href="{{ url_for('dashboard_siswa') }}" class="btn-secondary">Kembali</a>
+        </form>
+    </div>
+</div>
+{% endblock %}
