@@ -4,133 +4,157 @@
 <div class="dashboard">
     <h2>Dashboard Calon Siswa</h2>
 
-    <!-- Info akun -->
+    <!-- Card 1: Informasi Akun -->
     <div class="card">
         <h3>Informasi Akun</h3>
-        <p><strong>Selamat datang, {{ user.nama_decrypted }}!</strong></p>
-        <p>Username/NIS: <strong>{{ user.username }}</strong></p>
-        <p>Status: <span class="status-{{ user.status }}">{{ user.status|title }}</span></p>
+        <div class="data-grid">
+            <div class="data-item">
+                <strong>Nama Lengkap</strong>
+                <span>{{ user.nama_decrypted }}</span>
+            </div>
+            <div class="data-item">
+                <strong>NISN</strong>
+                <span>{{ user.username }}</span>
+            </div>
+            <div class="data-item">
+                <strong>Status</strong>
+                <span class="status-{{ user.status }}">
+                    {% if user.status == 'tidak_lulus' %}
+                        Tidak Lulus
+                    {% elif user.status == 'belum_lengkap' %}
+                        Belum Lengkap
+                    {% elif user.status == 'menunggu' %}
+                        Menunggu Verifikasi
+                    {% elif user.status == 'lulus' %}
+                        Lulus
+                    {% elif user.status == 'selesai' %}
+                        Selesai
+                    {% else %}
+                        {{ user.status|title }}
+                    {% endif %}
+                </span>
+            </div>
+            <div class="data-item">
+                <strong>Tanggal Daftar</strong>
+                <span>{{ user.tanggal_daftar.strftime('%d-%m-%Y') if user.tanggal_daftar else '-' }}</span>
+            </div>
+        </div>
     </div>
 
+    <!-- Card 2: Data Pendaftaran -->
     <div class="card">
         <h3>Data Pendaftaran</h3>
         {% if user.tempat_lahir_decrypted %}
             <div class="data-grid">
                 <div class="data-item">
-                    <strong>Nama:</strong>
-                    <span>{{ user.nama_decrypted }}</span>
+                    <strong>Tempat Lahir</strong>
+                    <span>{{ user.tempat_lahir_decrypted or '-' }}</span>
                 </div>
                 <div class="data-item">
-                    <strong>Username:</strong>
-                    <span>{{ user.username }}</span>
-                </div>
-                <div class="data-item">
-                    <strong>Tempat Lahir:</strong>
-                    <span>{{ user.tempat_lahir_decrypted }}</span>
-                </div>
-                <div class="data-item">
-                    <strong>Tanggal Lahir:</strong>
+                    <strong>Tanggal Lahir</strong>
                     <span>{{ user.tanggal_lahir.strftime('%d-%m-%Y') if user.tanggal_lahir else '-' }}</span>
                 </div>
                 <div class="data-item">
-                    <strong>Jenis Kelamin:</strong>
-                    <span>{{ user.jenis_kelamin_decrypted }}</span>
+                    <strong>Jenis Kelamin</strong>
+                    <span>{{ user.jenis_kelamin_decrypted or '-' }}</span>
                 </div>
                 <div class="data-item">
-                    <strong>Agama:</strong>
-                    <span>{{ user.agama_decrypted }}</span>
+                    <strong>Agama</strong>
+                    <span>{{ user.agama_decrypted or '-' }}</span>
                 </div>
                 <div class="data-item full-width">
-                    <strong>Alamat:</strong>
-                    <span>{{ user.alamat_decrypted }}</span>
+                    <strong>Alamat</strong>
+                    <span>{{ user.alamat_decrypted or '-' }}</span>
                 </div>
                 <div class="data-item">
-                    <strong>No. HP:</strong>
-                    <span>{{ user.no_hp_decrypted }}</span>
+                    <strong>No. HP</strong>
+                    <span>{{ user.no_hp_decrypted or '-' }}</span>
                 </div>
                 <div class="data-item">
-                    <strong>Asal Sekolah:</strong>
-                    <span>{{ user.asal_sekolah_decrypted }}</span>
+                    <strong>Asal Sekolah</strong>
+                    <span>{{ user.asal_sekolah_decrypted or '-' }}</span>
                 </div>
                 <div class="data-item">
-                    <strong>Nama Ayah:</strong>
-                    <span>{{ user.nama_ayah_decrypted }}</span>
+                    <strong>Nama Ayah</strong>
+                    <span>{{ user.nama_ayah_decrypted or '-' }}</span>
                 </div>
                 <div class="data-item">
-                    <strong>Pekerjaan Ayah:</strong>
-                    <span>{{ user.pekerjaan_ayah_decrypted }}</span>
+                    <strong>Pekerjaan Ayah</strong>
+                    <span>{{ user.pekerjaan_ayah_decrypted or '-' }}</span>
                 </div>
                 <div class="data-item">
-                    <strong>Nama Ibu:</strong>
-                    <span>{{ user.nama_ibu_decrypted }}</span>
+                    <strong>Nama Ibu</strong>
+                    <span>{{ user.nama_ibu_decrypted or '-' }}</span>
                 </div>
                 <div class="data-item">
-                    <strong>Pekerjaan Ibu:</strong>
-                    <span>{{ user.pekerjaan_ibu_decrypted }}</span>
+                    <strong>Pekerjaan Ibu</strong>
+                    <span>{{ user.pekerjaan_ibu_decrypted or '-' }}</span>
                 </div>
             </div>
-            {% if user.status != 'selesai' %}
+            {% if user.status not in ['selesai', 'lulus', 'tidak_lulus'] %}
             <div class="form-actions">
-                <a href="{{ url_for('lengkapi_data_siswa') }}" class="btn-secondary">Edit Data</a>
-                <a href="{{ url_for('upload_dokumen') }}" class="btn-primary">Upload Dokumen</a>
+                <a href="{{ url_for('lengkapi_data_siswa') }}" class="btn-secondary">✏️ Edit Data</a>
+                <a href="{{ url_for('upload_dokumen') }}" class="btn-primary">📎 Upload Dokumen</a>
             </div>
             {% endif %}
         {% else %}
             <p>Data pribadi belum lengkap. Silakan lengkapi data Anda.</p>
-            <a href="{{ url_for('lengkapi_data_siswa') }}" class="btn-primary">Lengkapi Data</a>
+            {% if user.status not in ['selesai', 'lulus', 'tidak_lulus'] %}
+            <div class="form-actions">
+                <a href="{{ url_for('lengkapi_data_siswa') }}" class="btn-primary">📝 Lengkapi Data</a>
+            </div>
+            {% endif %}
         {% endif %}
     </div>
 
+    <!-- Card 3: Status Pendaftaran & Bukti -->
     <div class="card">
         <h3>Status Pendaftaran</h3>
-        <div class="data-grid">
-            <div class="data-item">
-                <strong>Status:</strong>
-                <span class="status-{{ user.status }}">{{ user.status|title }}</span>
-            </div>
-        </div>
         
         {% if user.status == 'belum_lengkap' %}
             <div class="info-message">Silakan lengkapi data pribadi dan upload dokumen yang diperlukan.</div>
         {% elif user.status == 'menunggu' %}
             <div class="info-message">Pendaftaran Anda sedang dalam proses verifikasi oleh admin.</div>
         {% elif user.status == 'lulus' %}
-            <div class="success-message">🎉 Selamat! Anda dinyatakan LULUS seleksi pendaftaran.</div>
+            <div class="success-message">Selamat! Anda dinyatakan LULUS seleksi pendaftaran.</div>
         {% elif user.status == 'tidak_lulus' %}
-            <div class="error-message">⚠️ Maaf, Anda dinyatakan TIDAK LULUS seleksi pendaftaran.</div>
+            <div class="error-message">Mohon maaf, Anda dinyatakan TIDAK LULUS seleksi pendaftaran.</div>
         {% elif user.status == 'selesai' %}
-            <div class="info-message">✅ Pendaftaran Anda telah diselesaikan. Data tidak dapat diubah lagi.</div>
+            <div class="info-message">Pendaftaran Anda telah diselesaikan. Data tidak dapat diubah lagi.</div>
         {% endif %}
 
         {% if bukti %}
-            <div class="data-grid">
+            <div class="data-grid" style="margin-top: 15px;">
                 <div class="data-item">
-                    <strong>File Bukti:</strong>
+                    <strong>File Bukti</strong>
                     <span>{{ bukti.filename }}</span>
                 </div>
                 <div class="data-item">
-                    <strong>Status Bukti:</strong>
+                    <strong>Status Bukti</strong>
                     <span class="status-{{ bukti.status }}">{{ bukti.status|title }}</span>
                 </div>
                 <div class="data-item">
-                    <strong>Tanggal Upload:</strong>
+                    <strong>Tanggal Upload</strong>
                     <span>{{ bukti.tanggal_upload.strftime('%d-%m-%Y %H:%M') }}</span>
                 </div>
             </div>
         {% else %}
-            <p>Anda belum mengupload bukti pendaftaran.</p>
+            <p style="margin-top: 10px;">Anda belum mengupload bukti pendaftaran.</p>
         {% endif %}
 
-        {% if user.status != 'selesai' %}
-        <a href="{{ url_for('upload_bukti') }}" class="btn-primary">Upload Bukti Pendaftaran</a>
+        {% if user.status not in ['selesai', 'lulus', 'tidak_lulus'] %}
+        <div class="form-actions" style="margin-top: 15px;">
+            <a href="{{ url_for('upload_bukti') }}" class="btn-primary">📤 Upload Bukti Pendaftaran</a>
+        </div>
         {% endif %}
     </div>
 
-    {% if user.status != 'selesai' %}
+    <!-- Card 4: Selesaikan Pendaftaran (hanya jika status belum final) -->
+    {% if user.status not in ['selesai', 'lulus', 'tidak_lulus'] %}
     <div class="card">
         <h3>Selesaikan Pendaftaran</h3>
         <div class="finalization-info">
-            <p><strong>⚠️ PERINGATAN:</strong> Setelah menekan tombol di bawah, Anda TIDAK AKAN BISA lagi mengubah data atau dokumen pendaftaran.</p>
+            <p><strong>⚠️ PERINGATAN:</strong> Setelah menyelesaikan pendaftaran, Anda TIDAK AKAN BISA lagi mengubah data atau dokumen.</p>
             
             <div class="checklist">
                 <div class="checklist-item {% if user.tempat_lahir_decrypted and user.tanggal_lahir and user.jenis_kelamin_decrypted and user.agama_decrypted and user.alamat_decrypted and user.no_hp_decrypted and user.asal_sekolah_decrypted and user.nama_ayah_decrypted and user.pekerjaan_ayah_decrypted and user.nama_ibu_decrypted and user.pekerjaan_ibu_decrypted %}completed{% endif %}">
@@ -147,7 +171,7 @@
             {% if user.tempat_lahir_decrypted and user.tanggal_lahir and user.jenis_kelamin_decrypted and user.agama_decrypted and user.alamat_decrypted and user.no_hp_decrypted and user.asal_sekolah_decrypted and user.nama_ayah_decrypted and user.pekerjaan_ayah_decrypted and user.nama_ibu_decrypted and user.pekerjaan_ibu_decrypted and bukti and dokumen_count >= 3 %}
             <form method="POST" action="{{ url_for('selesaikan_pendaftaran') }}" onsubmit="return confirmFinalization()">
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                <button type="submit" class="btn-finalize">✅ Selesaikan Pendaftaran</button>
+                <button type="submit" class="btn-finalize">Selesaikan Pendaftaran</button>
             </form>
             {% else %}
             <button class="btn-finalize" disabled style="opacity: 0.5; cursor: not-allowed;">
@@ -159,6 +183,7 @@
     </div>
     {% endif %}
 
+    <!-- Card 5: Pengumuman Terbaru -->
     {% if pengumuman %}
     <div class="card">
         <h3>Pengumuman Terbaru</h3>
@@ -170,105 +195,238 @@
 </div>
 
 <style>
-.info-message, .success-message, .error-message {
-    padding: 10px;
-    border-radius: 5px;
-    margin: 10px 0;
-    font-weight: 500;
+/* ========== CARD UKURAN SERAGAM ========== */
+.dashboard h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #A0D787;
 }
 
-.info-message {
-    background: #E3F2FD;
-    color: #1565C0;
-    border: 1px solid #BBDEFB;
+.card {
+    background: #FFFFFF;
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    border: 1px solid #E0E0E0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* UKURAN SERAGAM - semua card punya tinggi yang konsisten */
+    min-height: 190px;
+    display: flex;
+    flex-direction: column;
 }
 
-.success-message {
-    background: #E8F5E8;
-    color: #2E7D32;
-    border: 1px solid #C8E6C9;
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
 
-.error-message {
-    background: #FFEBEE;
-    color: #C62828;
-    border: 1px solid #FFCDD2;
+.card h3 {
+    color: #A0D787;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-bottom: 2px solid rgba(160, 215, 135, 0.3);
+    padding-bottom: 0.5rem;
+    flex-shrink: 0;
 }
 
+/* Isi card otomatis mengisi ruang */
+.card > *:last-child {
+    margin-top: auto;
+}
+
+/* ========== DATA GRID ========== */
 .data-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem;
     margin-bottom: 1rem;
 }
 
 .data-item {
-    padding: 1rem;
+    padding: 0.7rem;
     background: #F8F9FA;
-    border-radius: 8px;
+    border-radius: 10px;
     border-left: 3px solid #A0D787;
+    transition: all 0.3s ease;
+}
+
+.data-item:hover {
+    transform: translateX(2px);
+    background: #f0f2f5;
+}
+
+.data-item.full-width {
+    grid-column: 1 / -1;
 }
 
 .data-item strong {
     display: block;
     color: #A0D787;
-    margin-bottom: 0.3rem;
-    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .data-item span {
     color: #333333;
-    font-size: 1rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    word-break: break-word;
 }
 
-.full-width {
-    grid-column: 1 / -1;
+/* ========== STATUS BADGE ========== */
+.status-belum_lengkap, .status-menunggu, .status-lulus, .status-tidak_lulus, .status-selesai {
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.75rem;
 }
 
+.status-belum_lengkap {
+    background: #FFF3E0;
+    color: #FF9800;
+}
+
+.status-menunggu {
+    background: #E3F2FD;
+    color: #2196F3;
+}
+
+.status-lulus {
+    background: #E8F5E9;
+    color: #4CAF50;
+}
+
+.status-tidak_lulus {
+    background: #FFEBEE;
+    color: #F44336;
+}
+
+.status-selesai {
+    background: #E0E0E0;
+    color: #616161;
+}
+
+/* ========== MESSAGE BOX ========== */
+.info-message, .success-message, .error-message {
+    padding: 8px 12px;
+    border-radius: 8px;
+    margin: 10px 0;
+    font-weight: 500;
+    font-size: 0.8rem;
+}
+
+.info-message {
+    background: #E3F2FD;
+    color: #1565C0;
+    border-left: 4px solid #2196F3;
+}
+
+.success-message {
+    background: #E8F5E9;
+    color: #2E7D32;
+    border-left: 4px solid #4CAF50;
+}
+
+.error-message {
+    background: #FFEBEE;
+    color: #C62828;
+    border-left: 4px solid #F44336;
+}
+
+/* ========== FORM ACTIONS (TOMbol SEJAJAR) ========== */
 .form-actions {
     display: flex;
     gap: 1rem;
     justify-content: center;
-    margin-top: 2rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
 }
 
+.form-actions a {
+    flex: 1;
+    text-align: center;
+    min-width: 140px;
+}
+
+.btn-primary, .btn-secondary {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+}
+
+.btn-primary {
+    background: #A0D787;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #8BC34A;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #5a6268;
+    transform: translateY(-2px);
+}
+
+/* ========== FINALISASI ========== */
 .finalization-info {
     background: #FFF8E1;
-    padding: 20px;
-    border-radius: 10px;
+    padding: 12px;
+    border-radius: 12px;
     border-left: 4px solid #FFA000;
-    margin-top: 15px;
+    margin-top: 5px;
 }
 
 .checklist {
-    margin: 20px 0;
+    margin: 12px 0;
 }
 
 .checklist-item {
-    padding: 10px;
-    margin: 8px 0;
+    padding: 8px 12px;
+    margin: 6px 0;
     background: #F5F5F5;
-    border-radius: 6px;
+    border-radius: 8px;
     border-left: 3px solid #FFA000;
+    font-weight: 500;
+    font-size: 0.8rem;
 }
 
 .checklist-item.completed {
     background: #E8F5E8;
     border-left: 3px solid #4CAF50;
+    color: #2E7D32;
 }
 
 .btn-finalize {
     background: linear-gradient(135deg, #4CAF50, #2E7D32);
     color: white;
-    padding: 15px 30px;
+    padding: 10px 20px;
     border: none;
     border-radius: 8px;
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     font-weight: 600;
     cursor: pointer;
     width: 100%;
     transition: all 0.3s ease;
-    margin-top: 15px;
+    margin-top: 8px;
 }
 
 .btn-finalize:hover:not(:disabled) {
@@ -277,10 +435,35 @@
 }
 
 .finalization-note {
-    margin-top: 10px;
+    margin-top: 8px;
     color: #666;
-    font-size: 0.9rem;
+    font-size: 0.7rem;
     text-align: center;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+    .data-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+    
+    .form-actions a {
+        width: 100%;
+    }
+    
+    .btn-primary, .btn-secondary {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .card {
+        padding: 1rem;
+        min-height: auto;
+    }
 }
 </style>
 

@@ -3,47 +3,31 @@
 {% block content %}
 <div class="login-container">
     <div class="login-form">
-        <h2>Registrasi sebagai {{ request.args.get('role', 'Siswa')|title }}</h2>
-        
-        {% if request.args.get('role') == 'siswa' %}
-        <div class="info-register">
-            <p><strong>Informasi Pendaftaran:</strong></p>
-            <p>Silakan isi data dengan benar. Setelah registrasi, Anda dapat login menggunakan username dan password yang telah dibuat.</p>
-        </div>
-        {% endif %}
-        
+        <h2>Registrasi Siswa</h2>
+                
         <form method="POST" id="registerForm">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-            <input type="hidden" name="role" value="{{ request.args.get('role', 'siswa') }}">
+            <input type="hidden" name="role" value="siswa">
             
             <div class="form-group">
-                <label for="nama">
-                    {% if request.args.get('role') == 'admin' %}
-                        Nama Admin
-                    {% else %}
-                        Nama Lengkap Siswa
-                    {% endif %}
-                </label>
+                <label for="nama">Nama Lengkap</label>
                 <input type="text" id="nama" name="nama" required 
-                       placeholder="Masukkan nama lengkap" autocomplete="name">
+                       placeholder="Contoh: Budi Santoso" autocomplete="name">
+                <small style="color: #666; font-size: 0.7rem;">Input harus berupa huruf murni, tanpa campuran angka atau simbol.</small>
             </div>
             
             <div class="form-group">
-                <label for="username">
-                    {% if request.args.get('role') == 'admin' %}
-                        Username Admin
-                    {% else %}
-                        NIS (Nomor Induk Siswa)
-                    {% endif %}
-                </label>
+                <label for="username">NISN (Nomor Induk Siswa Nasional)</label>
                 <input type="text" id="username" name="username" required 
-                       placeholder="Masukkan username" autocomplete="username">
+                       placeholder="Contoh: 1234567890" autocomplete="username" maxlength="20">
+                <small style="color: #666; font-size: 0.7rem;">Masukkan 10 digit NISN</small>
             </div>
             
             <div class="form-group">
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" required 
-                       placeholder="Masukkan password" autocomplete="new-password">
+                       placeholder="Minimal 8 karakter" autocomplete="new-password">
+                <small style="color: #666; font-size: 0.7rem;">Password minimal 8 karakter; kombinasi huruf dan angka.</small>
             </div>
             
             <button type="submit" class="btn-primary">Daftar</button>
@@ -51,7 +35,7 @@
         
         <p class="register-link">
             Sudah punya akun? 
-            <a href="{{ url_for('login') }}?role={{ request.args.get('role', 'siswa') }}">
+            <a href="{{ url_for('login') }}?role=siswa">
                 Login di sini
             </a>
         </p>
@@ -64,28 +48,93 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Register page loaded');
+    const form = document.getElementById('registerForm');
     
-    // Debug CSRF token
-    const csrfInput = document.querySelector('input[name="csrf_token"]');
-    if (csrfInput) {
-        console.log('Register CSRF Token:', csrfInput.value ? 'YES' : 'NO');
-        console.log('Register CSRF Token length:', csrfInput.value.length);
+    // Validasi hanya angka
+    function isOnlyNumbers(str) {
+        return /^[0-9]+$/.test(str);
     }
     
-    // Form validation
-    const form = document.getElementById('registerForm');
-    if (form) {
-        form.addEventListener('submit', function(e) {
-            const csrfToken = this.querySelector('input[name="csrf_token"]').value;
-            
-            if (!csrfToken || csrfToken.length < 10) {
-                alert('Error: CSRF Token tidak valid. Silakan refresh halaman.');
-                e.preventDefault();
-                return false;
-            }
-            
-            return true;
+    // Validasi hanya huruf dan spasi
+    function isOnlyLettersAndSpaces(str) {
+        return /^[a-zA-Z\s]+$/.test(str);
+    }
+    
+    // Validasi password (hanya huruf dan angka)
+    function isValidPassword(str) {
+        return /^[a-zA-Z0-9]+$/.test(str);
+    }
+    
+    form.addEventListener('submit', function(e) {
+        const nama = document.getElementById('nama').value.trim();
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value.trim();
+        
+        let errors = [];
+        
+        // Validasi Nama (HURUF dan SPASI saja)
+        if (!nama) {
+            errors.push('❌ Nama lengkap harus diisi!');
+        } else if (!isOnlyLettersAndSpaces(nama)) {
+            errors.push('❌ Nama lengkap harus berupa HURUF dan SPASI saja! (tidak boleh angka atau simbol)');
+        } else if (nama.length < 3) {
+            errors.push('❌ Nama lengkap minimal 3 karakter!');
+        } else if (nama.length > 100) {
+            errors.push('❌ Nama lengkap maksimal 100 karakter!');
+        }
+        
+        // Validasi Username (ANGKA saja)
+        if (!username) {
+            errors.push('❌ NIS harus diisi!');
+        } else if (!isOnlyNumbers(username)) {
+            errors.push('❌ NIS harus berupa ANGKA saja! (tidak boleh huruf atau simbol)');
+        } else if (username.length < 8) {
+            errors.push('❌ NIS minimal 8 digit angka!');
+        } else if (username.length > 20) {
+            errors.push('❌ NIS maksimal 20 digit angka!');
+        }
+        
+        // Validasi Password (Huruf dan Angka saja)
+        if (!password) {
+            errors.push('❌ Password harus diisi!');
+        } else if (password.length < 6) {
+            errors.push('❌ Password minimal 6 karakter!');
+        } else if (password.length > 50) {
+            errors.push('❌ Password maksimal 50 karakter!');
+        } else if (!isValidPassword(password)) {
+            errors.push('❌ Password hanya boleh terdiri dari HURUF dan ANGKA saja! (tidak boleh simbol atau spasi)');
+        }
+        
+        if (errors.length > 0) {
+            e.preventDefault();
+            alert('⚠️ VALIDASI GAGAL:\n\n• ' + errors.join('\n• '));
+            return false;
+        }
+        
+        return true;
+    });
+    
+    // Validasi real-time: Username hanya angka
+    const usernameInput = document.getElementById('username');
+    if (usernameInput) {
+        usernameInput.addEventListener('input', function() {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+    }
+    
+    // Validasi real-time: Nama hanya huruf dan spasi
+    const namaInput = document.getElementById('nama');
+    if (namaInput) {
+        namaInput.addEventListener('input', function() {
+            this.value = this.value.replace(/[^a-zA-Z\s]/g, '');
+        });
+    }
+    
+    // Validasi real-time: Password hanya huruf dan angka
+    const passwordInput = document.getElementById('password');
+    if (passwordInput) {
+        passwordInput.addEventListener('input', function() {
+            this.value = this.value.replace(/[^a-zA-Z0-9]/g, '');
         });
     }
 });
@@ -93,7 +142,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <style>
 .info-register {
-    background: rgba(160, 215, 135, 0.1);
+    background: rgba(160, 215, 135, 0.15);
     padding: 1rem;
     margin-bottom: 1.5rem;
     border-radius: 8px;
@@ -103,6 +152,7 @@ document.addEventListener('DOMContentLoaded', function() {
 .info-register p {
     margin: 0.3rem 0;
     color: #333333;
+    font-size: 0.85rem;
 }
 </style>
 {% endblock %}
