@@ -1,0 +1,348 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="dashboard">
+    <h2>Detail Data Siswa - Verifikasi Administrasi</h2>
+
+    <div class="back-navigation">
+        <a href="{{ url_for('admin_dashboard') }}" class="btn-secondary">Kembali ke Dashboard</a>
+    </div>
+
+    <div class="card">
+        <h3>Data Pribadi</h3>
+        <div class="data-grid">
+            <div class="data-item">
+                <strong>Nama Lengkap:</strong>
+                <span>{{ siswa.nama_decrypted }}</span>
+            </div>
+            <div class="data-item">
+                <strong>Username/NIS:</strong>
+                <span>{{ siswa.username }}</span>
+            </div>
+            <div class="data-item">
+                <strong>Tempat Lahir:</strong>
+                <span>{{ siswa.tempat_lahir_decrypted or '-' }}</span>
+            </div>
+            <div class="data-item">
+                <strong>Tanggal Lahir:</strong>
+                <span>{{ siswa.tanggal_lahir.strftime('%d-%m-%Y') if siswa.tanggal_lahir else '-' }}</span>
+            </div>
+            <div class="data-item">
+                <strong>Jenis Kelamin:</strong>
+                <span>{{ siswa.jenis_kelamin_decrypted or '-' }}</span>
+            </div>
+            <div class="data-item">
+                <strong>Agama:</strong>
+                <span>{{ siswa.agama_decrypted or '-' }}</span>
+            </div>
+            <div class="data-item">
+                <strong>Alamat:</strong>
+                <span>{{ siswa.alamat_decrypted or '-' }}</span>
+            </div>
+            <div class="data-item">
+                <strong>No. HP:</strong>
+                <span>{{ siswa.no_hp_decrypted or '-' }}</span>
+            </div>
+            <div class="data-item">
+                <strong>Asal Sekolah:</strong>
+                <span>{{ siswa.asal_sekolah_decrypted or '-' }}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Data Orang Tua</h3>
+        <div class="data-grid">
+            <div class="data-item">
+                <strong>Nama Ayah:</strong>
+                <span>{{ siswa.nama_ayah_decrypted or '-' }}</span>
+            </div>
+            <div class="data-item">
+                <strong>Pekerjaan Ayah:</strong>
+                <span>{{ siswa.pekerjaan_ayah_decrypted or '-' }}</span>
+            </div>
+            <div class="data-item">
+                <strong>Nama Ibu:</strong>
+                <span>{{ siswa.nama_ibu_decrypted or '-' }}</span>
+            </div>
+            <div class="data-item">
+                <strong>Pekerjaan Ibu:</strong>
+                <span>{{ siswa.pekerjaan_ibu_decrypted or '-' }}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Status Pendaftaran</h3>
+        <div class="data-grid">
+            <div class="data-item">
+                <strong>Status:</strong>
+                <span class="status-{{ siswa.status }}">{{ siswa.status|title }}</span>
+            </div>
+            <div class="data-item">
+                <strong>Tanggal Daftar:</strong>
+                <span>{{ siswa.tanggal_daftar.strftime('%d-%m-%Y %H:%M') }}</span>
+            </div>
+        </div>
+        
+        <form method="POST" action="{{ url_for('update_status', user_id=siswa.id) }}" class="status-form">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <div class="form-group">
+                <label for="status">Update Status Pendaftaran:</label>
+                <select name="status" id="status" required>
+                    <option value="belum_lengkap" {% if siswa.status == 'belum_lengkap' %}selected{% endif %}>Belum Lengkap</option>
+                    <option value="menunggu" {% if siswa.status == 'menunggu' %}selected{% endif %}>Menunggu Verifikasi</option>
+                    <option value="lulus" {% if siswa.status == 'lulus' %}selected{% endif %}>Lulus Seleksi</option>
+                    <option value="tidak_lulus" {% if siswa.status == 'tidak_lulus' %}selected{% endif %}>Tidak Lulus</option>
+                </select>
+            </div>
+            <button type="submit" class="btn-primary">Update Status Pendaftaran</button>
+        </form>
+    </div>
+
+    {% if bukti %}
+    <div class="card">
+        <h3>Bukti Pendaftaran</h3>
+        <div class="data-grid">
+            <div class="data-item">
+                <strong>File:</strong>
+                <span>{{ bukti.filename }}</span>
+            </div>
+            <div class="data-item">
+                <strong>Status:</strong>
+                <span class="status-{{ bukti.status }}">{{ bukti.status|title }}</span>
+            </div>
+            <div class="data-item">
+                <strong>Tanggal Upload:</strong>
+                <span>{{ bukti.tanggal_upload.strftime('%d-%m-%Y %H:%M') }}</span>
+            </div>
+            <div class="data-item full-width">
+                <strong>Aksi:</strong>
+                <a href="{{ url_for('download_file', file_id=bukti.id, file_type='bukti') }}" class="btn-primary" target="_blank">Download File</a>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="card">
+        <h3>Bukti Pendaftaran</h3>
+        <p class="status-missing">Siswa belum mengupload bukti pendaftaran</p>
+    </div>
+    {% endif %}
+
+    <div class="card">
+        <h3>Dokumen Tambahan</h3>
+        {% if dokumen %}
+        <div class="dokumen-grid">
+            {% for jenis, doc in dokumen.items() %}
+            <div class="dokumen-card">
+                <h4>{{ jenis|title }}</h4>
+                <div class="dokumen-info">
+                    <p><strong>File:</strong> {{ doc.filename }}</p>
+                    <p><strong>Status:</strong> <span class="status-{{ doc.status }}">{{ doc.status|title }}</span></p>
+                    <p><strong>Upload:</strong> {{ doc.tanggal_upload.strftime('%d-%m-%Y %H:%M') }}</p>
+                </div>
+                
+                <div class="dokumen-actions">
+                    <a href="{{ url_for('download_file', file_id=doc.id, file_type='dokumen') }}" class="btn-small btn-primary" target="_blank">Download</a>
+                    
+                    <form method="POST" action="{{ url_for('update_dokumen_status', dokumen_id=doc.id) }}" class="status-form">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <select name="status" class="status-select">
+                            <option value="menunggu" {% if doc.status == 'menunggu' %}selected{% endif %}>Menunggu</option>
+                            <option value="diterima" {% if doc.status == 'diterima' %}selected{% endif %}>Diterima</option>
+                            <option value="ditolak" {% if doc.status == 'ditolak' %}selected{% endif %}>Ditolak</option>
+                        </select>
+                        <button type="submit" class="btn-small btn-primary">Update</button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="status-missing">Belum ada dokumen tambahan yang diupload.</p>
+        {% endif %}
+    </div>
+
+    <div class="card">
+        <h3>Verifikasi Kelengkapan</h3>
+        <div class="verification-checklist">
+            <div class="checklist-item {% if siswa.tempat_lahir_decrypted and siswa.tanggal_lahir and siswa.jenis_kelamin_decrypted and siswa.agama_decrypted and siswa.alamat_decrypted and siswa.no_hp_decrypted and siswa.asal_sekolah_decrypted %}completed{% endif %}">
+                <strong>Data Pribadi:</strong> 
+                {% if siswa.tempat_lahir_decrypted and siswa.tanggal_lahir and siswa.jenis_kelamin_decrypted and siswa.agama_decrypted and siswa.alamat_decrypted and siswa.no_hp_decrypted and siswa.asal_sekolah_decrypted %}
+                LENGKAP
+                {% else %}
+                BELUM LENGKAP
+                {% endif %}
+            </div>
+            
+            <div class="checklist-item {% if siswa.nama_ayah_decrypted and siswa.pekerjaan_ayah_decrypted and siswa.nama_ibu_decrypted and siswa.pekerjaan_ibu_decrypted %}completed{% endif %}">
+                <strong>Data Orang Tua:</strong> 
+                {% if siswa.nama_ayah_decrypted and siswa.pekerjaan_ayah_decrypted and siswa.nama_ibu_decrypted and siswa.pekerjaan_ibu_decrypted %}
+                LENGKAP
+                {% else %}
+                BELUM LENGKAP
+                {% endif %}
+            </div>
+            
+            <div class="checklist-item {% if bukti %}completed{% endif %}">
+                <strong>Bukti Pendaftaran:</strong> 
+                {% if bukti %}
+                SUDAH UPLOAD
+                {% else %}
+                BELUM UPLOAD
+                {% endif %}
+            </div>
+            
+            <div class="checklist-item {% if dokumen|length >= 3 %}completed{% endif %}">
+                <strong>Dokumen Tambahan:</strong> 
+                {{ dokumen|length }}/5 dokumen
+            </div>
+        </div>
+        
+        <div class="verification-note">
+            <p><strong>Catatan Verifikasi:</strong> Pastikan semua data dan dokumen sudah lengkap sebelum mengubah status menjadi "Lulus Seleksi".</p>
+        </div>
+    </div>
+</div>
+
+<style>
+.back-navigation {
+    margin-bottom: 20px;
+}
+
+.data-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.data-item {
+    padding: 1rem;
+    background: #F8F9FA;
+    border-radius: 8px;
+    border-left: 3px solid #A0D787;
+}
+
+.data-item strong {
+    display: block;
+    color: #A0D787;
+    margin-bottom: 0.3rem;
+    font-size: 0.9rem;
+}
+
+.data-item span {
+    color: #333333;
+    font-size: 1rem;
+}
+
+.full-width {
+    grid-column: 1 / -1;
+}
+
+.status-form {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #E0E0E0;
+}
+
+.status-missing {
+    color: #F44336;
+    font-weight: bold;
+}
+
+.dokumen-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.dokumen-card {
+    border: 1px solid #E0E0E0;
+    padding: 1.5rem;
+    border-radius: 8px;
+    background: #FFFFFF;
+    text-align: center;
+}
+
+.dokumen-info {
+    margin-bottom: 1rem;
+}
+
+.dokumen-actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.status-select {
+    padding: 0.3rem;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+.verification-checklist {
+    margin: 1rem 0;
+}
+
+.checklist-item {
+    padding: 0.8rem;
+    margin: 0.5rem 0;
+    border-radius: 8px;
+    background: #FFFFFF;
+    border-left: 4px solid #FF9800;
+    font-weight: 500;
+}
+
+.checklist-item.completed {
+    background: #E8F5E8;
+    border-left: 4px solid #4CAF50;
+}
+
+.verification-note {
+    background: rgba(160, 215, 135, 0.1);
+    padding: 1rem;
+    border-radius: 8px;
+    border-left: 4px solid #A0D787;
+    margin-top: 1rem;
+}
+
+.btn-small {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+    text-decoration: none;
+    border-radius: 4px;
+    display: inline-block;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-small:hover {
+    transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+    .data-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .dokumen-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .dokumen-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .status-select {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+}
+</style>
+{% endblock %}

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Kelulusan Sementara - PPDB SMA Negeri 317</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .dashboard {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #333333;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 2em;
+        }
+
+        h3 {
+            color: #333333;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border: 1px solid #E0E0E0;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #E0E0E0;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1em;
+        }
+
+        .btn-primary {
+            background: #A0D787;
+            color: white;
+        }
+
+        .btn-success {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .btn-danger {
+            background: #F44336;
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        .siswa-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .siswa-table th,
+        .siswa-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #E0E0E0;
+        }
+
+        .siswa-table th {
+            background: #A0D787;
+            color: white;
+            font-weight: 600;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .admin-nav {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border: 1px solid #E0E0E0;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            padding: 10px 20px;
+            background: #A0D787;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: #8BC34A;
+            transform: translateY(-2px);
+        }
+
+        .nav-link.active {
+            background: #333333;
+        }
+
+        .flash-messages {
+            margin-bottom: 30px;
+        }
+
+        .flash-message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .flash-success {
+            background: #E8F5E8;
+            color: #2E7D32;
+            border: 1px solid #C8E6C9;
+        }
+
+        .flash-error {
+            background: #FFEBEE;
+            color: #C62828;
+            border: 1px solid #FFCDD2;
+        }
+
+        .stat-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .stat-item {
+            background: #A0D787;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 1em;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333333;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #E0E0E0;
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #A0D787;
+        }
+
+        @media (max-width: 768px) {
+            .stat-container {
+                flex-direction: column;
+            }
+            
+            .nav-links {
+                flex-direction: column;
+            }
+            
+            .siswa-table {
+                font-size: 0.8rem;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Navigation -->
+        <div class="admin-nav">
+            <div class="nav-links">
+                <a href="{{ url_for('admin_dashboard') }}" class="nav-link">Dashboard</a>
+                <a href="{{ url_for('daftar_kelulusan_sementara') }}" class="nav-link active">Daftar Kelulusan</a>
+                <a href="{{ url_for('logout') }}" class="nav-link" style="background: #F44336;">Logout</a>
+            </div>
+        </div>
+
+        <h2>Daftar Kelulusan Sementara</h2>
+
+        <!-- Flash Messages -->
+        <div class="flash-messages">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="flash-message flash-{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+
+        <!-- Statistik Kelulusan -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Statistik Kelulusan</h3>
+            </div>
+            <div class="stat-container">
+                <div class="stat-item">
+                    <div class="stat-number">{{ total_lulus }}</div>
+                    <div class="stat-label">Siswa Lulus</div>
+                </div>
+                <div class="stat-item" style="background: #3498db;">
+                    <div class="stat-number">{{ total_siswa }}</div>
+                    <div class="stat-label">Total Pendaftar</div>
+                </div>
+                <div class="stat-item" style="background: #FF9800;">
+                    <div class="stat-number">{{ (total_lulus / total_siswa * 100)|round(1) if total_siswa > 0 else 0 }}%</div>
+                    <div class="stat-label">Persentase Kelulusan</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Publish Pengumuman -->
+        {% if total_lulus > 0 %}
+        <div class="card">
+            <div class="card-header">
+                <h3>Publikasikan Pengumuman Kelulusan</h3>
+            </div>
+            <form method="POST" action="{{ url_for('publish_pengumuman_kelulusan') }}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <div class="form-group">
+                    <label>Judul Pengumuman:</label>
+                    <input type="text" name="judul" value="Pengumuman Kelulusan PPDB SMA Negeri 317">
+                </div>
+                <div class="form-group">
+                    <label>Teks Tambahan:</label>
+                    <textarea name="tambahan_teks" rows="3" placeholder="Tulis teks tambahan untuk pengumuman..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-success">Publikasikan Pengumuman Kelulusan</button>
+            </form>
+        </div>
+        {% endif %}
+
+        <!-- Daftar Siswa Lulus -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Daftar Siswa yang Lulus</h3>
+                <span style="color: #666666; font-weight: 600;">Total: {{ total_lulus }} siswa</span>
+            </div>
+            
+            {% if daftar_kelulusan %}
+            <div class="table-container">
+                <table class="siswa-table">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama Siswa</th>
+                            <th>Username/NIS</th>
+                            <th>Asal Sekolah</th>
+                            <th>Tanggal Ditambahkan</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for kelulusan in daftar_kelulusan %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td><strong>{{ kelulusan.user.nama_decrypted }}</strong></td>
+                            <td>{{ kelulusan.user.username }}</td>
+                            <td>{{ kelulusan.user.asal_sekolah_decrypted or '-' }}</td>
+                            <td>{{ kelulusan.tanggal_diluluskan.strftime('%d-%m-%Y %H:%M') }}</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="{{ url_for('detail_siswa', user_id=kelulusan.user.id) }}" class="btn btn-primary" style="padding: 8px 16px;">
+                                        Detail
+                                    </a>
+                                    <a href="{{ url_for('hapus_dari_daftar_kelulusan', kelulusan_id=kelulusan.id) }}" class="btn btn-danger" style="padding: 8px 16px;" onclick="return confirm('Yakin ingin menghapus {{ kelulusan.user.nama_decrypted }} dari daftar kelulusan?')">
+                                        Hapus
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div style="text-align: center; padding: 40px;">
+                <p style="color: #666666; font-size: 1.1em;">Belum ada siswa dalam daftar kelulusan sementara.</p>
+                <p style="color: #999999; margin-top: 10px;">Update status siswa menjadi "Lulus" untuk menambahkannya ke daftar ini.</p>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Quick Actions</h3>
+            </div>
+            <div class="action-buttons">
+                <a href="{{ url_for('admin_dashboard') }}" class="btn btn-primary">
+                    Kembali ke Dashboard
+                </a>
+                {% if total_lulus > 0 %}
+                <a href="{{ url_for('pengumuman_public') }}" target="_blank" class="btn btn-success">
+                    Lihat Halaman Pengumuman
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

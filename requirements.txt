@@ -1,0 +1,10 @@
+Flask==2.3.3
+Flask-SQLAlchemy==3.0.5
+Flask-WTF==1.1.1
+WTForms==3.0.1
+pymysql==1.0.3
+cryptography==41.0.7
+Werkzeug==2.3.7
+itsdangerous==2.1.2
+argon2-cffi==21.3.0
+python-dotenv==1.0.0

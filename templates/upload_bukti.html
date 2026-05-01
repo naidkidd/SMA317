@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="dashboard">
+    <h2>Upload Bukti Pendaftaran</h2>
+    
+    {% if user.status == 'selesai' %}
+    <div class="card">
+        <div class="alert alert-error" style="text-align: center; padding: 2rem;">
+            <h3 style="color: #F44336; margin-bottom: 1rem;">⚠️ PERINGATAN</h3>
+            <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">Pendaftaran Anda sudah diselesaikan. Dokumen tidak dapat diubah lagi.</p>
+            <a href="{{ url_for('dashboard_siswa') }}" class="btn-secondary" style="display: inline-block; width: auto; padding: 10px 30px;">
+                Kembali ke Dashboard
+            </a>
+        </div>
+    </div>
+    {% else %}
+    <div class="card">
+        <div class="upload-info">
+            <h3>Upload Bukti Pendaftaran</h3>
+            <p>Silakan upload bukti pendaftaran dalam format PDF, JPG, JPEG, atau PNG (maksimal 2MB).</p>
+        </div>
+        
+        <form method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            
+            <div class="form-group">
+                <label for="file">Pilih File *</label>
+                <input type="file" id="file" name="file" accept=".pdf,.jpg,.jpeg,.png" required>
+                <small>Format yang didukung: PDF, JPG, JPEG, PNG (Maksimal 2MB)</small>
+            </div>
+            
+            <div class="form-note">
+                <p><strong>Peringatan:</strong> File ini tidak dapat diubah setelah Anda menyelesaikan pendaftaran.</p>
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="btn-primary">Upload File</button>
+                <a href="{{ url_for('dashboard_siswa') }}" class="btn-secondary">Kembali ke Dashboard</a>
+            </div>
+        </form>
+    </div>
+    {% endif %}
+</div>
+
+<style>
+.upload-info {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: #F8F9FA;
+    border-radius: 8px;
+}
+
+.upload-info h3 {
+    color: #A0D787;
+    margin-bottom: 0.5rem;
+}
+
+.form-note {
+    background: rgba(255, 152, 0, 0.1);
+    padding: 1rem;
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    border-left: 4px solid #FF9800;
+}
+
+.form-note p {
+    margin: 0;
+    color: #333333;
+    font-size: 0.9rem;
+}
+
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+</style>
+{% endblock %}

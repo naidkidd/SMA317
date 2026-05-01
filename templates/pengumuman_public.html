@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="dashboard">
+    <h2>Pengumuman PPDB SMA Negeri 317 Tahun {{ current_year }}/{{ next_year }}</h2>
+    
+    <!-- Statistik -->
+    <div class="statistics">
+        <div class="stat-card">
+            <div class="stat-number">{{ total_siswa }}</div>
+            <div class="stat-label">Total Pendaftar</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">{{ siswa_lulus }}</div>
+            <div class="stat-label">Siswa Lulus</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">{{ siswa_daftar }}</div>
+            <div class="stat-label">Proses Seleksi</div>
+        </div>
+    </div>
+    
+    <div class="back-home">
+        <a href="{{ url_for('home') }}" class="btn-secondary">Kembali ke Homepage</a>
+    </div>
+
+    {% if pengumuman %}
+        {% for p in pengumuman %}
+        <div class="card">
+            <h3>{{ p.judul }}</h3>
+            <p>{{ p.isi }}</p>
+            <small>Diposting: {{ p.tanggal.strftime('%d-%m-%Y %H:%M') }}</small>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="card">
+            <p>Belum ada pengumuman untuk PPDB Tahun {{ current_year }}/{{ next_year }}.</p>
+        </div>
+    {% endif %}
+</div>
+
+<style>
+.statistics {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin: 2rem 0;
+    flex-wrap: wrap;
+}
+
+.stat-card {
+    background: #FFFFFF;
+    padding: 1.5rem;
+    border-radius: 10px;
+    text-align: center;
+    min-width: 150px;
+    border: 2px solid #A0D787;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #A0D787;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    color: #333333;
+    font-size: 0.9rem;
+}
+
+.back-home {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .statistics {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .stat-card {
+        min-width: 200px;
+    }
+}
+</style>
+{% endblock %}

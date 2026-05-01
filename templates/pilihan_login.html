@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="login-container">
+    <div class="login-form">
+        <h2>Pilih Jenis Login</h2>
+        <div class="action-buttons" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 2rem 0;">
+            <div class="action-card">
+                <h3>Login sebagai Siswa</h3>
+                <p>Untuk calon siswa yang ingin mendaftar atau melihat status pendaftaran</p>
+                <a href="{{ url_for('login') }}?role=siswa" class="btn-primary">Login Siswa</a>
+            </div>
+
+            <div class="action-card">
+                <h3>Login sebagai Admin</h3>
+                <p>Untuk administrator yang mengelola pendaftaran siswa</p>
+                <a href="{{ url_for('admin_login') }}" class="btn-primary">Login Admin</a>
+            </div>
+        </div>
+
+        <div class="back-home">
+            <a href="{{ url_for('home') }}" class="btn-secondary">Kembali ke Homepage</a>
+        </div>
+    </div>
+</div>
+
+<style>
+.action-card {
+    background: #FFFFFF;
+    padding: 2rem;
+    border-radius: 10px;
+    border: 2px solid #A0D787;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.action-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.action-card h3 {
+    color: #333333;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.action-card p {
+    margin-bottom: 2rem;
+    color: #666666;
+    line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+    .action-buttons {
+        grid-template-columns: 1fr !important;
+    }
+}
+</style>
+{% endblock %}
