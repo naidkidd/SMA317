@@ -52,7 +52,7 @@
         }
 
         .header p {
-            color: #40916c;  /* Hijau muda */
+            color: #2d6a4f;  
             font-size: 1.15em;
             font-weight: 500;
         }
@@ -146,7 +146,7 @@
         }
 
         .btn-secondary {
-            background: #6c757d;
+            background: #A0D787;
         }
 
         .btn-secondary:hover {
@@ -316,24 +316,24 @@
         <!-- Header -->
         <div class="header">
             <h1>SELAMAT DATANG</h1>
-            <h2>CALON SISWA SMA NEGERI 317</h2>
-            <p>Website Penerimaan Peserta Didik Baru Tahun Ajaran 2026/2027</p>
+            <h2>DI PPDB ONLINE SMA NEGERI 317</h2>
+            <p>Website Resmi Penerimaan Peserta Didik Baru Tahun Ajaran 2026/2027</p>
         </div>
 
         <!-- Welcome Text -->
         <div class="welcome-text">
-            <p>Selamat datang di situs PPDB Online SMA Negeri 317. Dengan penuh kebanggaan, kami membuka kesempatan bagi calon peserta didik baru yang ingin menjadi bagian dari keluarga besar SMA Negeri 317.</p>
-            <p><strong>Mari wujudkan impian pendidikan terbaik bersama kami!</strong></p>
+            <p>Selamat datang di sistem Penerimaan Peserta Didik Baru (PPDB) SMA Negeri 317. Dengan penuh kebanggaan, kami membuka kesempatan bagi calon siswa untuk bergabung dan mengembangkan potensi akademik maupun non-akademik dalam lingkungan pendidikan yang berkualitas, disiplin, dan berintegritas.</p>
+            <p><strong>Mari wujudkan masa depan pendidikan yang lebih baik bersama SMA Negeri 317!</strong></p>
         </div>
 
         <!-- Student Actions -->
         <div class="actions-container">
             <div class="action-box">
                 <h3>Saya Calon Siswa</h3>
-                <p>Mendaftar sebagai siswa baru atau login ke akun yang sudah ada</p>
+                <p>Silahkan melakukan pendaftaran untuk membuat akun baru atau masuk ke akun yang telah terdaftar untuk melanjutkan proses seleksi</p>
                 <div class="btn-container">
-                    <a href="{{ url_for('register') }}" class="btn">Register</a>
-                    <a href="{{ url_for('login') }}" class="btn btn-secondary">Login</a>
+                    <a href="{{ url_for('register') }}" class="btn">Daftar Sekarang</a>
+                    <a href="{{ url_for('siswa_login_page') }}" class="btn btn-secondary">Masuk ke Akun</a>
                 </div>
             </div>
         </div>
