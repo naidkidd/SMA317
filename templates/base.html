@@ -14,7 +14,7 @@
             <div class="nav-links">
                 {% if session.admin_logged_in and session.role == 'admin' %}
                     <span>🔐 {{ session.nama }} (Admin)</span>
-                    <a href="{{ url_for('admin_logout') }}" class="logout-btn">Logout</a>
+                    <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
                 {% elif session.user_id and session.role == 'siswa' %}
                     <span>👨‍🎓 {{ session.nama }} (Siswa)</span>
                     <a href="{{ url_for('siswa_logout') }}" class="logout-btn">Logout</a>
@@ -57,4 +57,3 @@
     </script>
 </body>
 </html>
-

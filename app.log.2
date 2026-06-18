@@ -1,0 +1,101 @@
+2026-06-18 09:32:15,704 - ppdb - ERROR - Exception on /dashboard-admin [GET]
+Traceback (most recent call last):
+  File "/var/www/html/SMA-317/venv/lib/python3.12/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/www/html/SMA-317/venv/lib/python3.12/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/www/html/SMA-317/venv/lib/python3.12/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/www/html/SMA-317/venv/lib/python3.12/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/www/html/SMA-317/ppdb.py", line 278, in decorated
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/var/www/html/SMA-317/ppdb.py", line 806, in admin_dashboard
+    return render_template('dashboard_admin.html',
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/www/html/SMA-317/venv/lib/python3.12/site-packages/flask/templating.py", line 151, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/www/html/SMA-317/venv/lib/python3.12/site-packages/flask/templating.py", line 132, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/www/html/SMA-317/venv/lib/python3.12/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/var/www/html/SMA-317/venv/lib/python3.12/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/var/www/html/SMA-317/templates/dashboard_admin.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "/var/www/html/SMA-317/templates/base.html", line 17, in top-level template code
+    <a href="{{ url_for('admin_logout') }}" class="logout-btn">Logout</a>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/www/html/SMA-317/venv/lib/python3.12/site-packages/flask/app.py", line 1697, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/www/html/SMA-317/venv/lib/python3.12/site-packages/flask/app.py", line 1686, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/www/html/SMA-317/venv/lib/python3.12/site-packages/werkzeug/routing/map.py", line 950, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'admin_logout'. Did you mean 'admin_logout_redirect' instead?
+2026-06-18 09:45:15,209 - ppdb - ERROR - Exception on /dashboard-admin [GET]
+Traceback (most recent call last):
+  File "/var/www/html/SMA-317/venv/lib/python3.12/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/www/html/SMA-317/venv/lib/python3.12/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/www/html/SMA-317/venv/lib/python3.12/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/www/html/SMA-317/venv/lib/python3.12/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/www/html/SMA-317/ppdb.py", line 278, in decorated
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/var/www/html/SMA-317/ppdb.py", line 806, in admin_dashboard
+    return render_template('dashboard_admin.html',
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/www/html/SMA-317/venv/lib/python3.12/site-packages/flask/templating.py", line 151, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/www/html/SMA-317/venv/lib/python3.12/site-packages/flask/templating.py", line 132, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/www/html/SMA-317/venv/lib/python3.12/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/var/www/html/SMA-317/venv/lib/python3.12/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/var/www/html/SMA-317/templates/dashboard_admin.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "/var/www/html/SMA-317/templates/base.html", line 41, in top-level template code
+    {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/www/html/SMA-317/templates/dashboard_admin.html", line 27, in block 'content'
+    <a href="{{ url_for('daftar_kelulusan_sementara') }}" class="btn-white">📋 Lihat Daftar Kelulusan</a>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/www/html/SMA-317/venv/lib/python3.12/site-packages/flask/app.py", line 1697, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/www/html/SMA-317/venv/lib/python3.12/site-packages/flask/app.py", line 1686, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/www/html/SMA-317/venv/lib/python3.12/site-packages/werkzeug/routing/map.py", line 950, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'daftar_kelulusan_sementara'. Did you mean 'daftar_kelulusan' instead?
+2026-06-18 09:48:03,944 - ppdb - WARNING - Unauthorized admin access attempt from IP: 10.13.8.238
+2026-06-18 09:48:05,070 - ppdb - WARNING - Unauthorized admin access attempt from IP: 10.13.8.238
+2026-06-18 09:48:05,456 - ppdb - WARNING - Unauthorized admin access attempt from IP: 10.13.8.238
+2026-06-18 09:48:05,619 - ppdb - WARNING - Unauthorized admin access attempt from IP: 10.13.8.238
+2026-06-18 09:53:24,958 - ppdb - WARNING - Unauthorized admin access attempt from IP: 10.13.8.238
+2026-06-18 09:53:25,412 - ppdb - WARNING - Unauthorized admin access attempt from IP: 10.13.8.238
+2026-06-18 09:53:25,547 - ppdb - WARNING - Unauthorized admin access attempt from IP: 10.13.8.238
+2026-06-18 09:53:25,725 - ppdb - WARNING - Unauthorized admin access attempt from IP: 10.13.8.238
+2026-06-18 09:53:25,978 - ppdb - WARNING - Unauthorized admin access attempt from IP: 10.13.8.238
+2026-06-18 09:53:26,126 - ppdb - WARNING - Unauthorized admin access attempt from IP: 10.13.8.238

@@ -24,7 +24,8 @@
         <div class="kelulusan-number">{{ total_lulus }}</div>
         <div class="kelulusan-label">Siswa dalam daftar kelulusan</div>
         <div class="kelulusan-actions">
-            <a href="{{ url_for('daftar_kelulusan_sementara') }}" class="btn-white">📋 Lihat Daftar Kelulusan</a>
+            <!-- PERBAIKAN: daftar_kelulusan_sementara → daftar_kelulusan -->
+            <a href="{{ url_for('daftar_kelulusan') }}" class="btn-white">📋 Lihat Daftar Kelulusan</a>
         </div>
     </div>
 
@@ -80,4 +81,3 @@
 @media (max-width: 768px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
 </style>
 {% endblock %}
-
