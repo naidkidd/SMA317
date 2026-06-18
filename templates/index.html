@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -7,12 +6,7 @@
     <title>PPDB SMA Negeri 317</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             background-image: url('{{ background_image_url }}');
             background-size: cover;
@@ -23,66 +17,18 @@
             min-height: 100vh;
             color: #1a1a2e;
         }
-
         .main-container {
             background: rgba(255, 255, 255, 0.88);
             min-height: 100vh;
             padding: 40px 20px;
         }
-
-        /* ========== HEADER ========== */
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-            padding-top: 20px;
-        }
-
-        .header h1 {
-            font-size: 3.2em;
-            margin-bottom: 10px;
-            font-weight: 800;
-            color: #1e4620;  /* Hijau tua gelap */
-            letter-spacing: -0.5px;
-        }
-
-        .header h2 {
-            color: #2d6a4f;  /* Hijau sedang */
-            font-size: 1.9em;
-            margin-bottom: 15px;
-            font-weight: 700;
-        }
-
-        .header p {
-            color: #2d6a4f;  
-            font-size: 1.15em;
-            font-weight: 500;
-        }
-
-        /* ========== WELCOME TEXT ========== */
-        .welcome-text {
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto 50px;
-            color: #2d3436;
-            font-size: 1.1em;
-            line-height: 1.7;
-            font-weight: 450;
-        }
-
-        .welcome-text strong {
-            font-weight: 700;
-            color: #1e4620;  /* Hijau tua untuk teks tebal */
-        }
-
-        /* ========== ACTION BOX ========== */
-        .actions-container {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin: 50px 0;
-            flex-wrap: wrap;
-        }
-
+        .header { text-align: center; margin-bottom: 40px; padding-top: 20px; }
+        .header h1 { font-size: 3.2em; margin-bottom: 10px; font-weight: 800; color: #1e4620; }
+        .header h2 { color: #2d6a4f; font-size: 1.9em; margin-bottom: 15px; font-weight: 700; }
+        .header p { color: #40916c; font-size: 1.15em; font-weight: 500; }
+        .welcome-text { text-align: center; max-width: 800px; margin: 0 auto 50px; color: #2d3436; font-size: 1.1em; line-height: 1.7; }
+        .welcome-text strong { font-weight: 700; color: #1e4620; }
+        .actions-container { display: flex; justify-content: center; gap: 30px; margin: 50px 0; flex-wrap: wrap; }
         .action-box {
             background: #FFFFFF;
             border: 2px solid #A0D787;
@@ -91,38 +37,12 @@
             text-align: center;
             width: 350px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-            color: #333333;
             transition: all 0.3s ease;
         }
-
-        .action-box:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 35px rgba(0,0,0,0.12);
-            background: #F8F9FA;
-        }
-
-        .action-box h3 {
-            color: #2d6a4f;  /* Hijau sedang */
-            margin-bottom: 15px;
-            font-size: 1.5em;
-            font-weight: 700;
-        }
-
-        .action-box p {
-            color: #5a6e6a;  /* Abu kehijauan */
-            margin-bottom: 25px;
-            line-height: 1.5;
-            font-weight: 450;
-        }
-
-        .btn-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
-            width: 100%;
-        }
-
+        .action-box:hover { transform: translateY(-8px); box-shadow: 0 20px 35px rgba(0,0,0,0.12); background: #F8F9FA; }
+        .action-box h3 { color: #2d6a4f; margin-bottom: 15px; font-size: 1.5em; font-weight: 700; }
+        .action-box p { color: #5a6e6a; margin-bottom: 25px; line-height: 1.5; }
+        .btn-container { display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; }
         .btn {
             display: inline-block;
             background: #A0D787;
@@ -131,30 +51,13 @@
             border-radius: 50px;
             text-decoration: none;
             font-weight: 600;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1em;
             width: 100%;
             max-width: 220px;
             text-align: center;
         }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            background: #8BC34A;
-            box-shadow: 0 5px 15px rgba(160, 215, 135, 0.3);
-        }
-
-        .btn-secondary {
-            background: #A0D787;
-        }
-
-        .btn-secondary:hover {
-            background: #5a6268;
-        }
-
-        /* ========== ANNOUNCEMENT ========== */
+        .btn:hover { transform: translateY(-2px); background: #8BC34A; }
+        .btn-secondary { background: #6c757d; }
+        .btn-secondary:hover { background: #5a6268; }
         .announcement-section {
             background: #FFFFFF;
             border-radius: 15px;
@@ -163,54 +66,12 @@
             max-width: 800px;
             border-left: 5px solid #A0D787;
             box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-            color: #333333;
         }
-
-        .announcement-section h3 {
-            color: #2d6a4f;  /* Hijau sedang */
-            margin-bottom: 20px;
-            text-align: center;
-            font-size: 1.5em;
-            font-weight: 700;
-        }
-
-        .empty-announcement {
-            text-align: center;
-            padding: 40px 20px;
-            color: #888888;
-            border: 2px dashed #A0D787;
-            border-radius: 10px;
-            font-style: italic;
-        }
-
-        .announcement-content {
-            background: #F8F9FA;
-            padding: 20px;
-            border-radius: 10px;
-            border: 1px solid #E0E0E0;
-        }
-
-        .announcement-content h4 {
-            color: #1e4620;  /* Hijau tua gelap */
-            margin-bottom: 10px;
-            font-size: 1.2em;
-            font-weight: 700;
-        }
-
-        .announcement-content p {
-            color: #2d3436;
-            margin-bottom: 10px;
-            line-height: 1.6;
-            font-weight: 400;
-        }
-
-        .announcement-date {
-            color: #888888;
-            font-size: 0.9em;
-            font-weight: 400;
-        }
-
-        /* ========== INFO SECTION ========== */
+        .announcement-section h3 { color: #2d6a4f; margin-bottom: 20px; text-align: center; font-size: 1.5em; font-weight: 700; }
+        .empty-announcement { text-align: center; padding: 40px 20px; color: #888; border: 2px dashed #A0D787; border-radius: 10px; }
+        .announcement-content { background: #F8F9FA; padding: 20px; border-radius: 10px; border: 1px solid #E0E0E0; }
+        .announcement-content h4 { color: #1e4620; margin-bottom: 10px; font-size: 1.2em; font-weight: 700; }
+        .announcement-date { color: #888; font-size: 0.9em; }
         .info-section {
             background: #FFFFFF;
             border-radius: 15px;
@@ -218,24 +79,9 @@
             margin: 50px auto;
             max-width: 1000px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-            color: #333333;
         }
-
-        .info-section h2 {
-            color: #1e4620;  /* Hijau tua gelap */
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 1.8em;
-            font-weight: 800;
-        }
-
-        .info-grid {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-        }
-
+        .info-section h2 { color: #1e4620; text-align: center; margin-bottom: 30px; font-size: 1.8em; font-weight: 800; }
+        .info-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
         .info-card {
             background: #A0D787;
             color: #FFFFFF;
@@ -246,88 +92,33 @@
             transition: all 0.3s ease;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
-
-        .info-card:hover {
-            transform: translateY(-5px);
-            background: #8BC34A;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-        }
-
-        .info-card h4 {
-            color: #FFFFFF;
-            margin-bottom: 15px;
-            font-size: 1.2em;
-            font-weight: 700;
-        }
-
-        .info-card p {
-            color: #FFFFFF;
-            margin: 8px 0;
-            font-weight: 400;
-        }
-
-        /* ========== ADMIN LINK ========== */
-        .admin-link {
-            text-align: center;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #E0E0E0;
-        }
-
-        .admin-link span {
-            color: #aaa;
-            font-size: 0.8rem;
-            font-weight: 400;
-        }
-
-        /* ========== RESPONSIVE ========== */
+        .info-card:hover { transform: translateY(-5px); background: #8BC34A; }
+        .info-card h4 { color: #FFFFFF; margin-bottom: 15px; font-size: 1.2em; font-weight: 700; }
+        .admin-link { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #E0E0E0; }
+        .admin-link span { color: #aaa; font-size: 0.8rem; }
         @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2.2em;
-            }
-
-            .header h2 {
-                font-size: 1.4em;
-            }
-
-            .actions-container {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .action-box {
-                width: 100%;
-                max-width: 350px;
-            }
-
-            .info-grid {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .info-card {
-                width: 100%;
-                max-width: 300px;
-            }
+            .header h1 { font-size: 2.2em; }
+            .header h2 { font-size: 1.4em; }
+            .actions-container { flex-direction: column; align-items: center; }
+            .action-box { width: 100%; max-width: 350px; }
+            .info-grid { flex-direction: column; align-items: center; }
+            .info-card { width: 100%; max-width: 300px; }
         }
     </style>
 </head>
 <body>
     <div class="main-container">
-        <!-- Header -->
         <div class="header">
             <h1>SELAMAT DATANG</h1>
             <h2>DI PPDB ONLINE SMA NEGERI 317</h2>
             <p>Website Resmi Penerimaan Peserta Didik Baru Tahun Ajaran 2026/2027</p>
         </div>
 
-        <!-- Welcome Text -->
         <div class="welcome-text">
             <p>Selamat datang di sistem Penerimaan Peserta Didik Baru (PPDB) SMA Negeri 317. Dengan penuh kebanggaan, kami membuka kesempatan bagi calon siswa untuk bergabung dan mengembangkan potensi akademik maupun non-akademik dalam lingkungan pendidikan yang berkualitas, disiplin, dan berintegritas.</p>
             <p><strong>Mari wujudkan masa depan pendidikan yang lebih baik bersama SMA Negeri 317!</strong></p>
         </div>
 
-        <!-- Student Actions -->
         <div class="actions-container">
             <div class="action-box">
                 <h3>Saya Calon Siswa</h3>
@@ -339,14 +130,13 @@
             </div>
         </div>
 
-        <!-- Latest Announcement -->
         <div class="announcement-section">
-            <h3> Pengumuman Terbaru</h3>
+            <h3>📢 Pengumuman Terbaru</h3>
             {% if pengumuman %}
             <div class="announcement-content">
                 <h4>{{ pengumuman.judul }}</h4>
                 <p>{{ pengumuman.isi }}</p>
-                <div class="announcement-date"> Diposting: {{ pengumuman.tanggal.strftime('%d-%m-%Y %H:%M') }}</div>
+                <div class="announcement-date">Diposting: {{ pengumuman.tanggal.strftime('%d-%m-%Y %H:%M') }}</div>
             </div>
             {% else %}
             <div class="empty-announcement">
@@ -356,7 +146,6 @@
             {% endif %}
         </div>
 
-        <!-- Information Section -->
         <div class="info-section">
             <h2>Informasi Pendaftaran</h2>
             <div class="info-grid">
@@ -377,397 +166,9 @@
             </div>
         </div>
 
-        <!-- Admin Link -->
         <div class="admin-link">
             <span>© RKS-412</span>
         </div>
     </div>
 </body>
 </html>
-=======
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PPDB SMA Negeri 317</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background-image: url('{{ background_image_url }}');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            background-repeat: no-repeat;
-            font-family: 'Poppins', 'Inter', sans-serif;
-            min-height: 100vh;
-            color: #1a1a2e;
-        }
-
-        .main-container {
-            background: rgba(255, 255, 255, 0.88);
-            min-height: 100vh;
-            padding: 40px 20px;
-        }
-
-        /* ========== HEADER ========== */
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-            padding-top: 20px;
-        }
-
-        .header h1 {
-            font-size: 3.2em;
-            margin-bottom: 10px;
-            font-weight: 800;
-            color: #1e4620;  /* Hijau tua gelap */
-            letter-spacing: -0.5px;
-        }
-
-        .header h2 {
-            color: #2d6a4f;  /* Hijau sedang */
-            font-size: 1.9em;
-            margin-bottom: 15px;
-            font-weight: 700;
-        }
-
-        .header p {
-            color: #40916c;  /* Hijau muda */
-            font-size: 1.15em;
-            font-weight: 500;
-        }
-
-        /* ========== WELCOME TEXT ========== */
-        .welcome-text {
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto 50px;
-            color: #2d3436;
-            font-size: 1.1em;
-            line-height: 1.7;
-            font-weight: 450;
-        }
-
-        .welcome-text strong {
-            font-weight: 700;
-            color: #1e4620;  /* Hijau tua untuk teks tebal */
-        }
-
-        /* ========== ACTION BOX ========== */
-        .actions-container {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin: 50px 0;
-            flex-wrap: wrap;
-        }
-
-        .action-box {
-            background: #FFFFFF;
-            border: 2px solid #A0D787;
-            border-radius: 15px;
-            padding: 35px 30px;
-            text-align: center;
-            width: 350px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-            color: #333333;
-            transition: all 0.3s ease;
-        }
-
-        .action-box:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 35px rgba(0,0,0,0.12);
-            background: #F8F9FA;
-        }
-
-        .action-box h3 {
-            color: #2d6a4f;  /* Hijau sedang */
-            margin-bottom: 15px;
-            font-size: 1.5em;
-            font-weight: 700;
-        }
-
-        .action-box p {
-            color: #5a6e6a;  /* Abu kehijauan */
-            margin-bottom: 25px;
-            line-height: 1.5;
-            font-weight: 450;
-        }
-
-        .btn-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
-            width: 100%;
-        }
-
-        .btn {
-            display: inline-block;
-            background: #A0D787;
-            color: #FFFFFF;
-            padding: 12px 28px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1em;
-            width: 100%;
-            max-width: 220px;
-            text-align: center;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            background: #8BC34A;
-            box-shadow: 0 5px 15px rgba(160, 215, 135, 0.3);
-        }
-
-        .btn-secondary {
-            background: #6c757d;
-        }
-
-        .btn-secondary:hover {
-            background: #5a6268;
-        }
-
-        /* ========== ANNOUNCEMENT ========== */
-        .announcement-section {
-            background: #FFFFFF;
-            border-radius: 15px;
-            padding: 30px;
-            margin: 50px auto;
-            max-width: 800px;
-            border-left: 5px solid #A0D787;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-            color: #333333;
-        }
-
-        .announcement-section h3 {
-            color: #2d6a4f;  /* Hijau sedang */
-            margin-bottom: 20px;
-            text-align: center;
-            font-size: 1.5em;
-            font-weight: 700;
-        }
-
-        .empty-announcement {
-            text-align: center;
-            padding: 40px 20px;
-            color: #888888;
-            border: 2px dashed #A0D787;
-            border-radius: 10px;
-            font-style: italic;
-        }
-
-        .announcement-content {
-            background: #F8F9FA;
-            padding: 20px;
-            border-radius: 10px;
-            border: 1px solid #E0E0E0;
-        }
-
-        .announcement-content h4 {
-            color: #1e4620;  /* Hijau tua gelap */
-            margin-bottom: 10px;
-            font-size: 1.2em;
-            font-weight: 700;
-        }
-
-        .announcement-content p {
-            color: #2d3436;
-            margin-bottom: 10px;
-            line-height: 1.6;
-            font-weight: 400;
-        }
-
-        .announcement-date {
-            color: #888888;
-            font-size: 0.9em;
-            font-weight: 400;
-        }
-
-        /* ========== INFO SECTION ========== */
-        .info-section {
-            background: #FFFFFF;
-            border-radius: 15px;
-            padding: 40px;
-            margin: 50px auto;
-            max-width: 1000px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-            color: #333333;
-        }
-
-        .info-section h2 {
-            color: #1e4620;  /* Hijau tua gelap */
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 1.8em;
-            font-weight: 800;
-        }
-
-        .info-grid {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-        }
-
-        .info-card {
-            background: #A0D787;
-            color: #FFFFFF;
-            padding: 25px;
-            border-radius: 12px;
-            text-align: center;
-            min-width: 250px;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .info-card:hover {
-            transform: translateY(-5px);
-            background: #8BC34A;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-        }
-
-        .info-card h4 {
-            color: #FFFFFF;
-            margin-bottom: 15px;
-            font-size: 1.2em;
-            font-weight: 700;
-        }
-
-        .info-card p {
-            color: #FFFFFF;
-            margin: 8px 0;
-            font-weight: 400;
-        }
-
-        /* ========== ADMIN LINK ========== */
-        .admin-link {
-            text-align: center;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #E0E0E0;
-        }
-
-        .admin-link span {
-            color: #aaa;
-            font-size: 0.8rem;
-            font-weight: 400;
-        }
-
-        /* ========== RESPONSIVE ========== */
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2.2em;
-            }
-
-            .header h2 {
-                font-size: 1.4em;
-            }
-
-            .actions-container {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .action-box {
-                width: 100%;
-                max-width: 350px;
-            }
-
-            .info-grid {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .info-card {
-                width: 100%;
-                max-width: 300px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="main-container">
-        <!-- Header -->
-        <div class="header">
-            <h1>SELAMAT DATANG</h1>
-            <h2>CALON SISWA SMA NEGERI 317</h2>
-            <p>Website Penerimaan Peserta Didik Baru Tahun Ajaran 2026/2027</p>
-        </div>
-
-        <!-- Welcome Text -->
-        <div class="welcome-text">
-            <p>Selamat datang di situs PPDB Online SMA Negeri 317. Dengan penuh kebanggaan, kami membuka kesempatan bagi calon peserta didik baru yang ingin menjadi bagian dari keluarga besar SMA Negeri 317.</p>
-            <p><strong>Mari wujudkan impian pendidikan terbaik bersama kami!</strong></p>
-        </div>
-
-        <!-- Student Actions -->
-        <div class="actions-container">
-            <div class="action-box">
-                <h3>Saya Calon Siswa</h3>
-                <p>Mendaftar sebagai siswa baru atau login ke akun yang sudah ada</p>
-                <div class="btn-container">
-                    <a href="{{ url_for('register') }}" class="btn">Register</a>
-                    <a href="{{ url_for('login') }}" class="btn btn-secondary">Login</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Latest Announcement -->
-        <div class="announcement-section">
-            <h3> Pengumuman Terbaru</h3>
-            {% if pengumuman %}
-            <div class="announcement-content">
-                <h4>{{ pengumuman.judul }}</h4>
-                <p>{{ pengumuman.isi }}</p>
-                <div class="announcement-date"> Diposting: {{ pengumuman.tanggal.strftime('%d-%m-%Y %H:%M') }}</div>
-            </div>
-            {% else %}
-            <div class="empty-announcement">
-                <p>Belum ada pengumuman yang tersedia saat ini.</p>
-                <p>Panitia belum membuat pengumuman apapun.</p>
-            </div>
-            {% endif %}
-        </div>
-
-        <!-- Information Section -->
-        <div class="info-section">
-            <h2>Informasi Pendaftaran</h2>
-            <div class="info-grid">
-                <div class="info-card">
-                    <h4>Jadwal Pendaftaran</h4>
-                    <p>1 Juni - 31 Juli 2026</p>
-                </div>
-                <div class="info-card">
-                    <h4>Kontak</h4>
-                    <p>Email: ppdb@sma317.sch.id</p>
-                    <p>Telp: (021) 1234567</p>
-                </div>
-                <div class="info-card">
-                    <h4>Alamat</h4>
-                    <p>Jl. Jomokerto No. 317</p>
-                    <p>Kota Batam</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Admin Link -->
-        <div class="admin-link">
-            <span>© RKS-412</span>
-        </div>
-    </div>
-</body>
-</html>
->>>>>>> 9f020b57f700149f510c5345aae5bd8fd89b667a
